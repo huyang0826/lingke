@@ -4,7 +4,7 @@ use think\Controller;
 use think\Db;
 use think\Request;
 use admin\model\AuthRule;
-use admin\model\Auth;
+use admin\model\Auth;   
 use admin\model\Menu;
 use admin\model\AuthGroup;
 use think\Session;
