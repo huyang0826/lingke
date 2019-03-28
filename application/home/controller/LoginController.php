@@ -13,16 +13,25 @@ class LoginController extends Controller
     		$data['mobilephone'] = trim(input('mobilephone')) ;
     		$data['password'] = md5(input('password'));
 
+
     		//验证用户名密码
     		$Member = Model('member');
 
     		$rs = $Member->find_data($data);
     		if($rs){
-    			session::set('web_member_id',$rs['id']);
-                session::set('web_member_mobilephone',$rs['mobilephone']);
-    			$data = [
-    				"status"=>1
-    			];
+
+                if($rs['status']==2){
+                    $data = [
+                        "status"=>2
+                    ];
+                }else{
+                    session::set('web_member_id',$rs['id']);
+                    session::set('web_member_mobilephone',$rs['mobilephone']);
+                    $data = [
+                        "status"=>1
+                    ];
+                }
+    			
     		}else{
     			$data = [
     				"status"=>0

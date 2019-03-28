@@ -34,7 +34,7 @@ class PersontgController extends Controller
        		
        }else{
        		$res =Db::name('tgmember_info')->where('uid',$data['uid'])->insert($data);
-       		
+
        		if($res){
        			return json(['status'=>1]);
        		}else{
@@ -50,16 +50,16 @@ class PersontgController extends Controller
 
     public function picgo(Request $request){
 
-        $file = $request->file('file');
-            if($file){
+    	$file = $request->file('file');
+        if($file){
 
-                $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'. DS . 'sf');
-                if($info){
-                    return '/uploads/'. DS . 'sf/'.$info->getSaveName();
-                    // 成功上传后 获取上传信息
+            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'. DS . 'sf');
+            if($info){
+                return '/uploads/'. DS . 'sf/'.$info->getSaveName();
+                // 成功上传后 获取上传信息
 
-                }
             }
+        }
         
         
     }
