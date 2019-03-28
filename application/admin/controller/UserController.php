@@ -25,14 +25,16 @@ class UserController extends AdminController
     {
     	$where = ['type'=>1];
         if($search){
-            $where['user_name|mobilephone'] = array('like',"%$search%");
+            $where['name|mobilephone'] = array('like',"%$search%");
         }
-      
+     
         $count = Db::name('member')->where($where)->count();
         $offset = input('offset')?:0;
         $pagesize =input('limit')?:20;
-        $data = Db::name('member')->where($where)->field("id,mobilephone,user_name,addtime")
+
+        $data = Db::name('member')->where($where)->field("id,mobilephone,name,addtime")
         ->limit($offset,$pagesize)->select();
+
 
         return json(['rows'=>$data,'total'=>$count]);
     }
@@ -116,17 +118,21 @@ class UserController extends AdminController
     {
         $where = ['type'=>2];
         if($search){
-            $where['user_name|mobilephone'] = array('like',"%$search%");
+            $where['mt.name|m.mobilephone'] = array('like',"%$search%");
         }
         if($sh){
-            $where['sh'] = array('eq',$sh);
+            $where['m.sh'] = array('eq',$sh);
         }
-        
+       
         $count = Db::name('member')->where($where)->count();
         $offset = input('offset')?:0;
         $pagesize =input('limit')?:20;
-        $data = Db::name('member')->where($where)->field("id,mobilephone,user_name,addtime")
-        ->limit($offset,$pagesize)->select();
+        $data = Db::name('member m')
+        ->join('tgmember_info mt','m.id = mt.uid','left')
+        ->where($where)
+        ->field("m.id,m.mobilephone,mt.name,m.addtime")
+        ->limit($offset,$pagesize)
+        ->select();
 
         return json(['rows'=>$data,'total'=>$count]);
     }

@@ -19,6 +19,7 @@ class LoginController extends Controller
     		$rs = $Member->find_data($data);
     		if($rs){
     			session::set('web_member_id',$rs['id']);
+                session::set('web_member_mobilephone',$rs['mobilephone']);
     			$data = [
     				"status"=>1
     			];

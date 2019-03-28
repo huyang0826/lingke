@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+  .upload{
+
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+    border: 1px solid #999;
+    text-decoration: none;
+    color: #666;
+}
+.change{
+    position: absolute;
+    overflow: hidden;
+    opacity: 0;
+    left: 0;
+    top: 0;
+}
+
+</style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {include file="public/header"}
+  <link href="__ADMINCSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+  <link href="__ADMINCSS__/animate.min.css" rel="stylesheet">
+  <!-- <link href="__ADMINCSS__/style.min.css?v=4.1.0" rel="stylesheet"> -->
+
+  <title>5.2我要供稿-个人信息</title>
+</head>
+<body>
+  
+  <div class="page2">
+    <!-- 公共 -->
+    {include file="public/nav"}
+    <!-- 内容 -->
+    <div class="gg_1">
+      <div class="wrapper">
+        <div class="gg_1_ct clearfix">
+          <div class="left fl">
+            <div class="left_top1">
+              <i><img src="__HOMEIMG__/head.png" alt=""></i>
+              <span>疯狂的外星人</span>
+              <a href="javascript:;">我要供稿</a>
+            </div>
+            <div class="left_top2">
+              <div class="top2_1">
+                <a class="active" href="javascript:;">
+                  <img class="img1" src="__HOMEIMG__/zhxx.png" alt="">
+                  <img class="img2" src="__HOMEIMG__/zhxx_xz.png" alt="">
+                  <span>账户信息</span>
+                </a>
+              </div>
+              <div class="top2_1">
+                <a href="javascript:;">
+                  <img class="img1" src="__HOMEIMG__/ct_1.png" alt="">
+                  <img class="img2" src="__HOMEIMG__/ct_2.png" alt="">
+                  <span>传图记录</span>
+                </a>
+              </div>
+              <div class="top2_1">
+                <a href="javascript:;">
+                  <img class="img1" src="__HOMEIMG__/xs_1.png" alt="">
+                  <img class="img2" src="__HOMEIMG__/xs_2.png" alt="">
+                  <span>销售报告</span>
+                </a>
+              </div>
+            </div>
+          </div>
+         
+            <div class="right fr">
+              <div class="right_top1 clearfix">
+                <div class="fl">
+                  <img src="__HOMEIMG__/zhxx.png" alt="">
+                  <span>账户信息</span>
+                </div>
+              </div>
+              <p class="ts">
+                <span>温馨提醒：</span>
+                供稿人账户信息必须补充全后才开通传图功能，请务必认真填写。
+              </p>
+            
+              <div class="right_top2">
+
+                <div class="right_top2_1">
+                  <span>基本信息</span>
+                </div>
+                <div class="rtt_ct">
+                  <div class="rtt clearfix">
+                    <div class="fl rtt1">
+                      <span>登录账号</span>
+                    </div>
+                    <div class="fl rtt2">
+                      <span>{$mobilephone}</span>
+                    </div>
+                  </div>
+     
+                  <div class="rtt clearfix">
+                    <div class="fl rtt1">
+                      <span>账户名称<i>*</i></span>
+                    </div>
+                    <div class="fl rtt2">
+                      <input class="sr" type="text" name="name" id="name" placeholder="请输入账户名称">
+                    </div>
+                  </div>
+    
+                  <div class="rtt clearfix">
+                    <div class="fl rtt1">
+                      <span>性别<i>*</i></span>
+                    </div>
+                    <div class="fl rtt2" >
+                      <label for="gender"><input type="radio" name="gender" id="gender" value="1" checked> 男</label>
+                      <label for="gender1"><input type="radio" name="gender" id="gender1" value="2"> 女</label>
+                      
+                    </div>
+                  </div>
+    
+                  <div class="rtt clearfix">
+                    <div class="fl rtt1">
+                      <span>邮箱<i>*</i></span>
+                    </div>
+                    <div class="fl rtt2">
+                      <input class="sr" type="text" name="email" id="email" placeholder="请输入邮箱">
+                    </div>
+                  </div>
+    
+                  <div class="rtt clearfix">
+                    <div class="fl rtt1">
+                      <span>微信<i>*</i></span>
+                    </div>
+                    <div class="fl rtt2">
+                      <input class="sr" type="text" name="weixin" id="weixin"  placeholder="请输入微信号">
+                    </div>
+                  </div>
+
+                  <!-- <div class="rtt clearfix">
+                    <div class="fl rtt1">
+                      <span>地区<i>*</i></span>
+                    </div>
+                    <div class="fl rtt2">
+                      <input class="sr" type="text" placeholder="请选择地区">
+                    </div>
+                  </div> -->
+    
+                  <div class="rtt clearfix">
+                    <div class="fl rtt1">
+                      <span>作品链接<i>*</i></span>
+                    </div>
+                    <div class="fl rtt2">
+                      <input class="sr" type="text" name="url" id="url" placeholder="请输入作品链接">
+                    </div>
+                  </div>
+    
+                  <div class="rtt clearfix">
+                    <div class="fl rtt1">
+                      <span>擅长领域<i>*</i></span>
+                    </div>
+                    <div class="fl rtt2">
+                      <input class="sr" type="text" name="scly" id="scly" placeholder="请输入擅长领域">
+                    </div>
+                  </div>
+    
+                  <div class="rtt clearfix">
+                    <div class="fl rtt1">
+                      <span>优势资源<i>*</i></span>
+                    </div>
+                    <div class="fl rtt2">
+                      <input class="sr" type="text" name="zyys"   id="zyys" placeholder="请输入优势资源">
+                    </div>
+                  </div>
+    
+                  <div class="rtt clearfix">
+                    <div class="fl rtt1">
+                      <span>自我介绍<i>*</i></span>
+                    </div>
+                    <div class="fl rtt2">
+                      <textarea  cols="30" rows="10" placeholder="自我介绍..." name="introduce" id="introduce" ></textarea>
+                    </div>
+                  </div>
+
+                  <div class="rtt clearfix">
+                    <div class="fl rtt11">
+                      <a href="javascript:;" id="button1">确定</a>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                
+
+              </div>
+              <input type="hidden" id="sf_img_zheng" value="">
+              <input type="hidden" id="sf_img_fan" value="">
+              <input type="hidden" id="bank_card_img" value="">
+              <div class="right_top3">
+                <div class="right_top3_1">
+                  <span>基本信息</span>
+
+                </div>
+                <div class="right_top3_2">
+                  <div class="top3_btm clearfix">
+                    <div class="fl rtm1">
+                      <span>本人身份证号<i>*</i></span>
+                    </div>
+                    <div class="fl rtm2">
+                      <input class="sr" type="text" id="sf_card" placeholder="请输入身份证号">
+                    </div>
+                  </div>
+                  <div class="top3_btm clearfix">
+                    <div class="fl rtm1">
+                      <span>身份证图片<i>*</i></span>
+                    </div>
+                    <div class="fl rtm3 clearfix">
+                      <div class="ct upload">
+                           <!-- <a href="javascript:;"><img src="__HOMEIMG__/jia.png" alt=""></a> -->
+                            <div class="picDis1">
+                              <img src="" alt="" style="width: 246px;height:136px;" >
+                            </div>
+                            <input onchange="preview1()"  type="file" style="width: 246px;height:136px;" class ="change" >
+                            
+                        <span>上传身份证正面照</span>
+
+                      </div>
+                      <div class="ct upload">
+                        <!-- <a href="javascript:;"><img src="__HOMEIMG__/jia.png" alt=""></a> -->
+
+                        <div class="picDis2">
+                          <img src="" alt="" style="width: 246px;height:136px;" >
+                        </div>
+
+                        <input onchange="preview2()"  type="file" style="width: 246px;height:136px;" class ="change" >
+                        <span>上传身份证背面照</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="top3_btm clearfix">
+                    <div class="fl rtm1">
+                      <span>银行卡账号<i>*</i></span>
+                    </div>
+                    <div class="fl rtm2">
+                      <input class="sr" type="text" id="bank_card" placeholder="请输入银行卡号">
+                    </div>
+                  </div>
+                  <div class="top3_btm clearfix">
+                    <div class="fl rtm1">
+                      <span>银行卡图片<i>*</i></span>
+                    </div>
+                    <div class="fl rtm3 clearfix">
+                      <div class="ct upload">
+                        <!-- <a href="javascript:;"><img src="__HOMEIMG__/jia.png" alt=""></a> -->
+                        <div class="picDis3">
+                          <img src="" alt="" style="width: 246px;height:136px;" >
+                        </div>
+                        <input onchange="preview3()"  type="file" style="width: 246px;height:136px;" class ="change" >
+                        <span>上传银行卡正面照</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="top3_btm clearfix">
+                    <div class="fl rtm4">
+                      <a href="javascript:;" id="button2">确定</a>
+                    </div>
+                    
+                  </div>
+                </div>
+
+
+              </div>
+
+            </div>
+          
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+<!-- 公共 -->
+ {include file="public/footer"}
+
+</html>
+<script src="http://cdn.bootcss.com/moment.js/2.11.1/moment.js"></script>
+<script src="__ADMINJS__/jquery.min.js?v=2.1.4"></script>
+<script src="__ADMINJS__/bootstrap.min.js?v=3.3.6"></script>
+<script src="__ADMINJS__/content.min.js?v=1.0.0"></script>
+<script src="__ADMINJS__/plugins/sweetalert/sweetalert.min.js"></script>
+
+<script type="text/javascript">
+
+  function preview1(){
+      　//formdata储存异步上传数据
+       var formData = new FormData($('form')[0]);
+       formData.append('file',$(':file')[0].files[0]);
+       //坑点: 无论怎么传数据,console.log(formData)都会显示为空,但其实值是存在的,f12查看Net tab可以看到数据被上传了
+       $.ajax({
+        url:'picgo',
+        type: 'POST',
+        data: formData,
+        //这两个设置项必填
+        contentType: false,
+        processData: false,
+        success:function(data){
+          console.log(data)
+          var srcPath = data;
+          // console.log();
+        　　　　 //注意这里的路径要根据自己的储存文件的路径设置
+          $('.picDis1 img').attr('src',srcPath);
+
+          $("#sf_img_zheng").val(srcPath);
+          
+
+        }
+       })
+  }
+  function preview2(){
+      　//formdata储存异步上传数据
+       var formData = new FormData($('form')[0]);
+       formData.append('file',$(':file')[1].files[0]);
+       //坑点: 无论怎么传数据,console.log(formData)都会显示为空,但其实值是存在的,f12查看Net tab可以看到数据被上传了
+       $.ajax({
+        url:'picgo',
+        type: 'POST',
+        data: formData,
+        //这两个设置项必填
+        contentType: false,
+        processData: false,
+        success:function(data){
+          console.log(data)
+          var srcPath = data;
+          // console.log();
+        　　　　 //注意这里的路径要根据自己的储存文件的路径设置
+          $('.picDis2 img').attr('src',srcPath);
+
+          $("#sf_img_fan").val(srcPath);
+          
+
+        }
+       })
+  }
+  function preview3(){
+
+    
+      　//formdata储存异步上传数据
+       var formData = new FormData($('form')[0]);
+
+       formData.append('file',$(':file')[2].files[0]);
+       //坑点: 无论怎么传数据,console.log(formData)都会显示为空,但其实值是存在的,f12查看Net tab可以看到数据被上传了
+       $.ajax({
+        url:'picgo',
+        type: 'POST',
+        data: formData,
+        //这两个设置项必填
+        contentType: false,
+        processData: false,
+        success:function(data){
+          console.log(data)
+          var srcPath = data;
+          // console.log();
+        　　　　 //注意这里的路径要根据自己的储存文件的路径设置
+        
+          $('.picDis3 img').attr('src',srcPath);
+
+          $("#bank_card_img").val(srcPath);
+          
+
+        }
+       })
+  }
+  
+  $("#button1").click(function(){
+
+    var name = $("#name").val()
+    var sex = $('input:radio:checked').val()
+    var email = $("#email").val()
+    var weixin = $("#weixin").val()
+    var url = $("#url").val()
+    var scly = $("#scly").val()
+    var zyys = $("#zyys").val()
+    var introduce = $("#introduce").val()
+    var uid = "{$uid}";
+
+    if(name.length==0){
+      swal({title:"请输入账户名称",text:""})
+      return;
+    }else if(sex.length==0){
+      swal({title:"请选择性别",text:""})
+      return;
+    }else if(email.length==0){
+      swal({title:"请输入邮箱",text:""})
+      return;
+    }else if(weixin.length==0){
+      swal({title:"请输入微信",text:""})
+      return;
+    }else if(url.length==0){
+      swal({title:"请输入作品链接",text:""})
+      return;
+    }else if(scly.length==0){
+      swal({title:"请输入擅长领域",text:""})
+      return;
+    }else if(zyys.length==0){
+      swal({title:"请输入优势资源",text:""})
+      return;
+    }else if(introduce.length==0){
+      swal({title:"请输入自我介绍",text:""})
+      return;
+    }else{
+      $.post('person_info_add',{'uid':uid,'name':name,'name':name,'sex':sex,'email':email,'weixin':weixin,'url':url,'scly':scly,'zyys':zyys,'introduce':introduce},function(data){
+          if(data.status==1){
+              swal({title:"提交成功",text:""})
+              return;
+          }else{
+              swal({title:"提交失败",text:""})
+              return;
+          }
+      })
+      
+    }
+    
+  })
+
+
+  $(document).on('click','#button2',function(){
+    var sf_card = $("#sf_card").val();
+    var sf_img_zheng = $("#sf_img_zheng").val();
+    var sf_img_fan = $("#sf_img_fan").val();
+    var bank_card_img = $("#bank_card_img").val();
+    var bank_card = $("#bank_card").val();
+    var uid = "{$uid}";
+
+
+    if(sf_card.length==0){
+      swal({title:"请输入身份证号",text:""})
+      return;
+    }else if(sf_img_zheng.length==0){
+      swal({title:"请上传正面身份证图片",text:""})
+      return;
+    }else if(sf_img_fan.length==0){
+      swal({title:"请上传反面身份证图片",text:""})
+      return;
+    }else if(bank_card.length==0){
+      swal({title:"请输入银行卡号",text:""})
+      return;
+    }else if(bank_card_img.length==0){
+      swal({title:"请上传银行卡图片",text:""})
+      return;
+    }else{
+      $.post('person_info_add',{'uid':uid,'sf_card':sf_card,'sf_img_zheng':sf_img_zheng,'sf_img_fan':sf_img_fan,'bank_card':bank_card,'bank_card_img':bank_card_img,},function(data){
+          if(data.status==1){
+              swal({title:"提交成功",text:""})
+              return;
+          }else{
+              swal({title:"提交失败",text:""})
+              return;
+          }
+      })
+    }
+   
+
+    
+  })
+ 
+
+</script>
