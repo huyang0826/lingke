@@ -17,6 +17,7 @@ class BannerController extends AdminController
     {
         
         $where = [];
+        
         if($search){
             $where['name|mobilephone'] = array('like',"%$search%");
         }
