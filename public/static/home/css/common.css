@@ -1,0 +1,55 @@
+﻿/*初始化*/
+html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
+header,footer,section,article,aside,nav,hgroup,address,figure,figcaption,menu,details{display:block;}
+i,b,cite,em,var,address,dfn{font-style:normal;}
+li {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+	color: #666;
+}
+img {
+	border: 0 none;
+	vertical-align: middle;
+}
+input,button {
+	border: 0 none;
+	outline-style: none;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
+}
+body {
+	font: 16px arial,"microsoft yahei";
+	background-color: #fff;
+	overflow-x:hidden;
+}
+.fl {float: left;}
+.fr {float: right;}
+.clearfix:before,.clearfix:after {
+	content:"";
+	display: table;
+}
+.clearfix:after {
+	clear: both;
+}
+.clearfix {
+	zoom: 1;
+}
+.none {
+  display: none;
+}
+.wrapper {
+  width: 1200px;
+  margin: 0 auto;
+}
+html,body {
+  height: 100%;
+}
+
+
+
+
