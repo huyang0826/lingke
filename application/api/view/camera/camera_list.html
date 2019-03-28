@@ -1,0 +1,314 @@
+{include file="public/header"}
+<style type="text/css">
+    .cursor{
+        cursor: pointer;
+
+    }
+    .cursor :hover{
+         text-decoration: underline;
+    }
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+   
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+           
+            <div class="ibox-content">
+                <div class="row row-lg">
+                   
+                    <div class="col-sm-12">
+                        <!-- Example Pagination -->
+                        <div class="example-wrap">
+                            <h4 class="example-title">
+                                <form method="post">
+    								<div id="toolbar" >
+    							        <a href="{:url('admin/camera/camera_add')}"><button  class="btn btn-success">
+    							            添加摄像头
+    							        </button></a>
+                                        
+    							    </div>
+                                </form>
+                            </h4>
+                            <div class="example">
+                         
+                                <table id="table" data-toggle="table"  data-search="true" data-row-style="rowStyle" data-cell-style="cellStyle" data-show-export="true"  data-show-pagination-switch="false" data-pagination="true"  data-page-list="[20, 25, 50, 100, ALL]" data-show-footer="false" data-page-size="20" data-side-pagination="server" 	data-url="{:url('admin/camera/index_ajax')}">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="state" data-checkbox="true"></th>
+                                            <th data-halign="center"data-field="id">ID</th>
+                                            <th data-halign="center"data-field="user_name">用户名</th>
+                                            <th data-halign="center" data-field="title">名称</th>
+                                            <th data-halign="center" data-field="deviceid">设备id</th>
+                                            <th data-halign="center" data-formatter="date_time" data-field="update_time">时间</th>
+                                            <th data-halign="center" data-field="operate">操作</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End Example Pagination -->
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+    <div style="position: absolute;top:100px;left: 200px;background: #000;z-index: 1000">
+        
+    </div>
+
+{include file="public/footer"}
+<script>
+    var $table = $('#table'),
+        $remove = $('#remove'),
+        selections = [];
+
+    $table.on('dbl-click-row.bs.table', function (e, row) {
+        alert(row.id);
+        var url = "{:url('admin/video/camera','','')}" + '/id/' + row.id;
+        open_layer('详情',url);
+    });
+
+    $table.on('click-cell.bs.table', function (e, row,field, value ) {
+        var pid = value.id;
+        $('#toolbar a').attr('href',"{:url('admin/woanfang/menu_add','','')}" + '/id/' + pid);
+        if(row == 'name'){
+       	    $table.bootstrapTable('refresh',{query: {pid: pid,offset:0}});
+        }
+    });
+    //全选中
+    $table.on('check-all.bs.table', function (e, row,field, value ) {
+        console.log(row);
+        var ids = '';
+        for (var i = row.length - 1; i >= 0; i--) {
+            ids += row[i].id + ',';
+        }
+        $('#cameraid').val(ids);
+    });
+    //选中
+    $table.on('check.bs.table', function (e, row,field, value ) {
+        console.log(row);
+        var cameraid = $('#cameraid').val();
+        var arr =  cameraid.split(',');
+        if( row.id && $.inArray(row.id, arr) >-1){
+            alert('已选择过');
+            return;
+        }
+        if( row.id && $.inArray(row.id, arr)<0 ){
+            cameraid +=row.id+',';
+            $('#cameraid').val(cameraid);
+        }
+        
+    });
+    //取消选中
+    $table.on('uncheck.bs.table', function (e, row,field, value ) {
+       
+        var cameraid = $('#cameraid').val();//原用户名
+        cameraid = cameraid.substring(0,cameraid.length-1);
+        var arr =  cameraid.split(',');//分割成数组
+        arr.splice( $.inArray(row.id.toString(),arr) ,1);//删除元素
+        if(arr){
+        	$('#cameraid').val(arr.join(',') + ',');
+        }
+        
+    });
+
+      //全选中
+    $table.on('uncheck-all.bs.table', function (e, row,field, value ) {
+        var cameraid = $('#cameraid').val('');//原用户名
+    });
+    //加载成功
+    $table.on('load-success.bs.table', function (e, row,field, value ) {
+    	var arr = [];
+        $table.bootstrapTable('checkBy', {field:'id', values:arr});
+    });
+
+  
+    // $table.on('dbl-click-row.bs.table', function (e, row) {
+    //    swal({
+    //             title: "您确定要删除这条信息吗",
+    //             text: "删除后将无法恢复，请谨慎操作！",
+    //             type: "warning",
+    //             showCancelButton: true,
+    //             confirmButtonColor: "#DD6B55",
+    //             confirmButtonText: "删除",
+    //             closeOnConfirm: false
+    //         }, function () {
+    //             swal("删除成功！", "您已经永久删除了这条信息。", "success");
+    //         });
+    // });
+
+   
+    window.operateEvents = {
+        'click .like': function (e, value, row, index) {
+           // alert('You click like action, row: ' + JSON.stringify(row));
+            var url = '{:url('woanfang/menu_edit','','')}';
+            var id = row.id;
+            window.location.href= url + '/id/' + id;
+        },
+        'click .remove': function (e, value, row, index) {
+              swal({
+                title: "您确定要删除这条信息吗",
+                text: "删除后将无法恢复，请谨慎操作！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "删除",
+                closeOnConfirm: false
+            }, function () {
+                $.post('{:url('woanfang/menu_del')}', {'id':row.id}, function(data) {
+                    if(data.status){
+                        swal("删除成功！", "您已经永久删除了这条信息。", "success");
+                        $table.bootstrapTable('remove', {
+                            field: 'id',
+                            values: [row.id]
+                        });
+                    }else{
+                        swal("删除失败！", data.msg, "success");
+                    }
+                });
+            });
+        }
+    };
+
+    $table.bootstrapTable({
+            height: getHeight(),
+            columns: [
+                [
+                    
+                    {
+                        field: 'state',
+                        checkbox: true,
+                        rowspan: 1,
+                        width:50,
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field:'id',
+                        title:'id',
+                        type:'string',
+                        class:'cursor',
+                        align: 'center'
+                    },
+                    {
+                        field:'user_name',
+                        title:'用户名',
+                        class:'cursor',
+                        align: 'center'
+                    },
+                    {
+                        field:'title',
+                        title:'标题',
+                        align: 'center'
+                    },
+
+                    {
+                        field:'deviceid',
+                        title:'设备id',
+                        align: 'center'
+                    },
+                    {
+                        field:'update_time',
+                        title:'时间',
+                        align: 'center'
+                    }
+                    ,
+                    {
+                        field: 'operate',
+                        title: '操作',
+                        align: 'center',
+                        events: operateEvents,
+                        formatter: operateFormatter
+                    }
+                ]
+            ]
+        });
+  
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.id
+        });
+    }
+
+    function responseHandler(res) {
+        $.each(res.rows, function (i, row) {
+            row.state = $.inArray(row.id, selections) !== -1;
+        });
+        return res;
+    }
+
+    function detailFormatter(index, row) {
+        var html = [];
+        $.each(row, function (key, value) {
+            html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+        });
+        return html.join('');
+    }
+
+    function operateFormatter(value, row, index) {
+        return [
+            '<a class="like" href="javascript:void(0)" title="Like">',
+            '<i class="glyphicon glyphicon-edit"></i>',
+            '</a>  ',
+            '<a class="remove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+        ].join('');
+    }
+
+   
+    function totalTextFormatter(data) {
+        return 'Total';
+    }
+
+    function totalNameFormatter(data) {
+        return data.length;
+    }
+
+    function totalPriceFormatter(data) {
+        var total = 0;
+        $.each(data, function (i, row) {
+            total += +(row.price.substring(1));
+        });
+        return '$' + total;
+    }
+
+    function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true);
+    }
+
+
+
+    function getScript(url, callback) {
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.src = url;
+
+        var done = false;
+        // Attach handlers for all browsers
+        script.onload = script.onreadystatechange = function() {
+            if (!done && (!this.readyState ||
+                    this.readyState == 'loaded' || this.readyState == 'complete')) {
+                done = true;
+                if (callback)
+                    callback();
+
+                // Handle memory leak in IE
+                script.onload = script.onreadystatechange = null;
+            }
+        };
+
+        head.appendChild(script);
+
+        // We handle everything using the script element injection
+        return undefined;
+    }
+function date_time(value,row) {
+    return    moment(value * 1000).format("YYYY-MM-DD HH:mm:ss")
+}
+
+</script>

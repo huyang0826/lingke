@@ -1,0 +1,176 @@
+{include file="public/header"}
+<style type="text/css">
+    .cursor{
+        cursor: pointer;
+
+    }
+    .cursor :hover{
+         text-decoration: underline;
+    }
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+   
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+           
+            <div class="ibox-content">
+                <div class="row row-lg">
+                   
+                    <div class="col-sm-12">
+                        <!-- Example Pagination -->
+                        <div class="example-wrap">
+                            <h4 class="example-title">
+                                <div id="toolbar" style="float:left">
+                                    <form action="" method="post">
+                                        <input type="text" name="user_id" required id="user_id" >
+                                        <div id="toolbar" >
+                                        <button  class="btn btn-success">保存</button
+                                        
+                                    </form>
+                                    
+                                </div>
+                              
+                            </h4>
+                            <div class="example">
+                         
+                                <table id="table" data-toggle="table"  data-search="true" data-row-style="rowStyle" data-cell-style="cellStyle" data-show-export="true"  data-show-pagination-switch="false" data-pagination="true"  data-page-list="[20, 25, 50, 100, ALL]" data-show-footer="false" data-page-size="20" data-side-pagination="server"     data-url="{:url('admin/user/index_ajax')}">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="state" data-checkbox="true"></th>
+                                            <th data-halign="center"data-field="user_name">名称</th>
+                                            <th data-halign="center" data-field="nickname">昵称</th>
+                                            <th data-halign="center" data-field="phone">手机号</th>
+                                            <th data-halign="center" data-field="money">余额</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End Example Pagination -->
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+    <div style="position: absolute;top:100px;left: 200px;background: #000;z-index: 1000">
+        
+    </div>
+
+{include file="public/footer"}
+<script>
+    var $table = $('#table'),
+        $remove = $('#remove'),
+        selections = [];
+    // $table.on('click-row.bs.table', function (e, row) {
+    //     alert(1);
+    //     console.log(row);
+    // });
+
+    $table.on('click-cell.bs.table', function (e, row,field, value ) {
+        var pid = value.id;
+        $('#toolbar a').attr('href',"{:url('admin/woanfang/menu_add','','')}" + '/pid/' + pid);
+        $('#toolbar1 a').attr('href',"{:url('admin/woanfang/camera_add','','')}" + '/id/' + pid);
+        if(row == 'name'){
+            $table.bootstrapTable('refresh',{query: {pid: pid,offset:0}});
+        }
+    });
+
+        $table.on('check-all.bs.table', function (e, row,field, value ) {
+            var user_id = '';
+            for (var i = 0; i < row.length; i++) {
+                if(user_id){
+                    user_id = user_id + ',' + row[i].user_id;
+                }else{
+                    user_id = row[i].user_id;
+                }
+            }
+            $('#user_id').val(user_id)
+        });
+        $table.on('uncheck-all.bs.table', function (e, row,field, value ) {
+            var user_id = '';
+            
+            $('#user_id').val(user_id)
+        });
+
+        //选中
+        $table.on('check.bs.table', function (e, row,field, value ) {
+            var old_user_id = $('#user_id').val();
+            if(old_user_id){
+                $('#user_id').val(old_user_id + ',' + row.user_id);
+            }else{
+                $('#user_id').val(row.user_id);
+            }
+            
+        });
+
+
+        //取消选中
+        $table.on('uncheck.bs.table', function (e, row,field, value ) {
+            var user_id = $('#user_id').val();//原用户名
+            var arr =  user_id.split(',');//user_id
+            arr.splice( $.inArray(row.user_id.toString(),arr) ,1);//删除元素
+            if(arr){
+                $('#user_id').val(arr.join(','));
+            }
+        });
+
+       
+        //加载成功
+        $table.on('load-success.bs.table', function (e, row,field, value ) {
+            var arr = [];
+            $table.bootstrapTable('checkBy', {field:'id', values:arr});
+        });
+
+    $table.bootstrapTable({
+            height: getHeight(),
+            columns: [
+                [
+                    
+                    {
+                        field: 'state',
+                        checkbox: true,
+                        rowspan: 1,
+                        width:50,
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field:'user_name',
+                        title:'名称',
+                        class:'cursor',
+                        align: 'center'
+                    },
+                    {
+                        field:'nickname',
+                        title:'昵称',
+                        align: 'center'
+                    },
+                    {
+                        field:'phone',
+                        title:'手机号',
+                        align: 'center'
+                    },
+                    {
+                        field:'money',
+                        title:'余额',
+                        align: 'center'
+                    }
+                ]
+            ]
+        });
+  
+
+    
+
+   
+
+
+    function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true);
+    }
+
+</script>

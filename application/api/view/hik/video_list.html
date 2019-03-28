@@ -1,0 +1,150 @@
+{include file="public/header"}
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content  animated fadeInRight" style="padding:0">
+        <div class="row">
+            <!-- <div class="col-sm-4">
+                    <div id="nestable-menu">
+                        <button type="button" data-action="expand-all" class="btn btn-white btn-sm">展开所有</button>
+                        <button type="button" data-action="collapse-all" class="btn btn-white btn-sm collapse-all">收起所有</button>
+                    </div>
+                </div> -->
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox" style="margin-top: 0">
+                    <div class="ibox-content" style="padding: 0">
+                        <div class="dd" id="nestable2" style="width: 400px">
+                        {volist name="tree" id="v1"}
+							<ol class="dd-list">
+                                <li class="dd-item" data-id="1">
+                                    <div class="dd-handle">
+                                        <span class="label label-info"><i class="fa fa-users"></i></span> {$v1.c_org_name}
+                                    </div>
+                                    <ol class="dd-list">
+	                                	{volist name="v1.children" id="v2"}
+	                                        <li class="dd-item" data-id="2">
+	                                            <div class="dd-handle">
+	                                                <!-- <span class="pull-right"> 12:00 </span> -->
+	                                                <span class="label label-info"><i class="fa fa-cog"></i></span> {$v2.c_org_name}
+	                                            </div>
+	                                            <ol class="dd-list">
+		                                            {volist name="v2.children" id="v3"}
+		                                                <li class="dd-item" data-id="3">
+		                                                    <div class="dd-handle">
+		                                                        <!-- <span class="pull-right"> 11:00 </span> -->
+		                                                        <span class="label label-info"><i class="fa fa-bolt"></i></span> {$v3.c_org_name}
+		                                                    </div>
+		                                                    {notempty name="v3.children"}
+		                                                    	<ol>
+			                                                    {volist name="v3.children" id="v4"}
+			                                                        <li class="dd-item" data-id="4">
+			                                                            <div class="dd-handle">
+			                                                                <!-- <span class="pull-right"> 11:00 </span> -->
+			                                                                <span class="label label-info"><i class="fa fa-bolt"></i></span> {$v4.c_org_name}
+			                                                            </div>
+			                                                            {notempty name="v4.children"}
+					                                                    	<ol>
+						                                                    {volist name="v4.children" id="v5"}
+						                                                        <li class="dd-item" data-id="5">
+						                                                            <div data-code="{$v5.c_index_code}" class="dd-handle">
+						                                                              <!--   <span class="pull-right"> 11:00 </span> -->
+						                                                                <span class="label label-info"><i class="fa fa-bolt"></i></span> {$v5.c_org_name}
+						                                                            </div>
+						                                       {notempty name="v5.children"}
+		                                                    	<ol>
+			                                                    {volist name="v5.children" id="v6"}
+			                                                        <li class="dd-item" data-id="3">
+			                                                            <div class="dd-handle">
+			                                                                <span class="label label-info"><i class="fa fa-bolt"></i></span> {$v6.c_org_name}
+			                                                            </div>
+			                                                        </li>
+			                                                     {/volist}
+			                                                    </ol>
+																{/notempty}
+						                                                        </li>
+						                                                     {/volist}
+						                                                    </ol>
+																		{/notempty}
+			                                                        </li>
+			                                                     {/volist}
+			                                                    </ol>
+															{/notempty}
+		                                                </li>
+		                                            {/volist}
+		                                        </ol>
+
+	                                        </li>
+	                                	{/volist}
+                                	</ol>
+                                </li>
+                            </ol>
+                     	{/volist}
+                            
+                        </div>
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+  
+{include file="public/footer"}
+    <script src="__JS__/plugins/nestable/jquery.nestable.js"></script>
+    <script>
+     $(document).ready(function() {
+        var updateOutput = function(e) {
+            var list = e.length ? e: $(e.target),
+            output = list.data("output");
+            if (window.JSON) {
+                output.val(window.JSON.stringify(list.nestable("serialize")))
+            } else {
+                output.val("浏览器不支持")
+            }
+        };
+      
+        $("#nestable2").nestable({
+            group: 1
+        }).on("change", updateOutput);
+      
+        $("#nestable-menu").on("click",
+            function(e) {
+                var target = $(e.target);
+               
+                action = target.data("action");
+                if (action === "expand-all") {
+                    $(".dd").nestable("expandAll")
+                }
+                if (action === "collapse-all") {
+                    $(".dd").nestable("collapseAll")
+                }
+            })
+    });
+        $('.dd-handle').click(function(event) {
+            var id = $(this).data('code');
+            if(id){
+                getAllResourceDetailByOrg(id);
+            }else{
+                swal({
+                    title: "没有数据",
+                    text: "没有数据",
+                    type: "warning",
+                    showCancelButton: true,
+                   
+                });
+            }
+            
+        });
+      function getAllResourceDetailByOrg(id) {
+             parent.layer.open({
+                type: 2,
+                title: '监控点',
+                shadeClose: true,
+                shade: false,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['900px', '750px'],
+                content: "{:url('admin/hik/getAllResourceDetailByOrg','','')}" + '/id/' + id
+            });
+        }    
+    </script>

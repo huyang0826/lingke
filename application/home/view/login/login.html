@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {include file="public/header"}
+
+  <link href="__ADMINCSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+  <link href="__ADMINCSS__/animate.min.css" rel="stylesheet">
+  <link href="__ADMINCSS__/style.min.css?v=4.1.0" rel="stylesheet">
+
+  <title>登录</title>
+</head>
+<body class="dz">
+  <div class="page1-2">
+    <div class="page1-2_t clearfix">
+      <a href="javascript:;" class="fl"><img src="__HOMEIMG__/logo.png" alt=""></a>
+      <a href="{:url('home/index/index')}" class="fr">
+        <img src="__HOMEIMG__/login_icon.png" alt="">
+        <span>返回首页</span>
+      </a>
+    </div>
+
+    <div class="page1-2_ct">
+      <h5>立即登录</h5>
+      <div class="input">
+        <input type="text" placeholder="请输入手机号" name="mobilephone" id="mobilephone">
+      </div>
+      <div class="input">
+        <input type="password" placeholder="请输入密码" name="password" id="password">
+      </div>
+      <p><span>忘记密码? </span><a href="{:url('home/login/find_password')}">立即找回</a></p>
+      <a class="login" href="javascript:;" id="login">登录</a>
+      
+    </div>
+  </div>
+</body>
+</html>
+
+<script src="http://cdn.bootcss.com/moment.js/2.11.1/moment.js"></script>
+<script src="__ADMINJS__/jquery.min.js?v=2.1.4"></script>
+<script src="__ADMINJS__/bootstrap.min.js?v=3.3.6"></script>
+<script src="__ADMINJS__/content.min.js?v=1.0.0"></script>
+<script src="__ADMINJS__/plugins/sweetalert/sweetalert.min.js"></script>
+
+<script type="text/javascript">
+  $("#login").click(function(){
+    var mobilephone = $("#mobilephone").val()
+    var password = $("#password").val()
+    
+    if(password.length==0){
+      swal({title:"请输入密码",text:""})
+      return;
+    }
+    if(mobilephone.length==0){
+      swal({title:"请输入手机号",text:""})
+      return;
+    } 
+   
+    $.post("login",{"mobilephone":mobilephone,"password":password},function(data){
+       if(data.status){
+          var url = '{:url('home/index/index','','')}';
+          window.location.href= url;
+       }else{
+          swal({title:"用户名密码错误",text:""})
+       }
+    });
+    
+  })
+
+</script>

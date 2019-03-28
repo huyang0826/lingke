@@ -1,0 +1,45 @@
+{include file="public/header"}
+<body>
+<div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>修改头像<small></small></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" action="{:url('header_update')}" enctype="multipart/form-data">
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">图片:</label>
+                                <div class="col-sm-9">
+                                    <input type="file"  accept="image/png, image/jpeg, image/gif, image/jpg" class="form-control" name="header_img" value="{$data.header_img}" required="true"> <span class="help-block m-b-none"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"></label>
+                                <div class="col-sm-9">
+                                
+                                <img src="{$data.header_img}"  name="header_img" required="true"  style="width: 100px;height: 100px;" >
+                                 
+                                  
+                                </div>
+                            </div>
+                      
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-4">
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                   <div class="btn btn-white" onclick="javascript:history.go(-1)">取消</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+</script>

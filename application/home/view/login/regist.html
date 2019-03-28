@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {include file="public/header"}
+  <link href="__ADMINCSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+  <link href="__ADMINCSS__/animate.min.css" rel="stylesheet">
+  <link href="__ADMINCSS__/style.min.css?v=4.1.0" rel="stylesheet">
+  <title>注册</title>
+</head>
+<body class="dz">
+  <div class="page1-1">
+    <div class="page1-1_t clearfix">
+      <a href="javascript:;" class="fl"><img src="__HOMEIMG__/logo.png" alt=""></a>
+      <a href="{:url('home/index/index')}" class="fr">
+        <img src="__HOMEIMG__/login_icon.png" alt="">
+        <span>返回首页</span>
+      </a>
+    </div>
+
+    <div class="page1-1_ct">
+      <h5>立即注册</h5>
+
+      <div class="input">
+        <input type="text" name="mobilephone" id="mobilephone"  placeholder="请输入常用手机号">
+      </div>
+
+      <div class="input_flex clearfix">
+        <input type="text" class="fl" placeholder="请输入图形码" id="verify">
+        <a href="javascript:;" class="fr">
+          <img src="{:captcha_src()}" name="verify"  alt="captcha" onclick="this.src='{:captcha_src()}?'+Math.random();">
+        </a>
+      </div>
+      
+      <div class="input_flex clearfix">
+        <input type="text" name="code"  id="code" class="fl" placeholder="请输入验证码">
+        <a href="javascript:;" class="fr" id="get_code">获取验证码</a>
+      </div>
+
+      <div class="input">
+        <input type="password" name="password" id="password" placeholder="请输入密码">
+      </div>
+
+      <p class="p1"><span>注册即代表同意</span><a href="javascript:;">《零克视觉注册协议》</a></p>
+
+      <div class="zc">
+        <a href="javascript:;" id="regist_putong">客户注册</a>
+        <a href="javascript:;" id="regist_gonggao">供搞人注册</a>
+      </div>
+      <p><span>已有账号，</span><a href="{:url('home/login/login')}">立即登录</a></p>
+
+    </div>
+  </div>
+</body>
+</html>
+<script src="http://cdn.bootcss.com/moment.js/2.11.1/moment.js"></script>
+<script src="__ADMINJS__/jquery.min.js?v=2.1.4"></script>
+<script src="__ADMINJS__/bootstrap.min.js?v=3.3.6"></script>
+<script src="__ADMINJS__/content.min.js?v=1.0.0"></script>
+<script src="__ADMINJS__/plugins/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript">
+
+  $("#get_code").click(function(){
+    var mobilephone = $("#mobilephone").val()
+    var verify = $("#verify").val()
+    var code = $("#code").val()
+    var password = $("#password").val()
+
+    if(mobilephone.length==0){
+      swal({title:"请输入手机号",text:""})
+      return;
+    } 
+    if(verify.length==0){
+      swal({title:"请输入图片验证码",text:""})
+      return;
+    } 
+ 
+    $.post("check_verify",{"verify":verify,'mobilephone':mobilephone},function(data){
+       if(!data.status){
+         swal({title:"图片验证码错误",text:""})
+         return;
+       }
+    });
+    
+  })
+
+  $("#regist_putong").click(function(){
+
+    var mobilephone = $("#mobilephone").val()
+    var verify = $("#verify").val()
+    var code = $("#code").val()
+    var password = $("#password").val()
+    
+    if(password.length==0){
+      swal({title:"请输入密码",text:""})
+      return;
+    }else{
+      $.post("regist",{"code":code,"mobilephone":mobilephone,'password':password,'type':1},function(data){
+         if(data.status==2){
+           swal({title:"短信验证码错误",text:""})
+           return false;
+         }else if(data.status==1){
+             swal({title:"注册成功",text:""}, function () {
+                  var url = '{:url('home/login/login','','')}';
+                  window.location.href= url;
+              });
+         }else if(data.status==0){
+            swal({title:"注册失败",text:""})
+            return false;
+         }else if(data.status==3){
+            swal({title:"您已注册过了",text:""})
+            return false;
+         }
+      });
+    }
+
+    
+    
+  })
+
+  $("#regist_gonggao").click(function(){
+
+    var mobilephone = $("#mobilephone").val()
+    var verify = $("#verify").val()
+    var code = $("#code").val()
+    var password = $("#password").val()
+    
+    if(password.length==0){
+      swal({title:"请输入密码",text:""})
+      return;
+    }else{
+      $.post("regist",{"code":code,"mobilephone":mobilephone,'password':password,'type':2},function(data){
+         if(data.status==2){
+           swal({title:"短信验证码错误",text:""})
+           return false;
+         }else if(data.status==1){
+             swal({title:"注册成功",text:""}, function () {
+                  var url = '{:url('home/login/login','','')}';
+                  window.location.href= url;
+              });
+         }else if(data.status==0){
+            swal({title:"注册失败",text:""})
+            return false;
+         }else if(data.status==3){
+            swal({title:"您已注册过了",text:""})
+            return false;
+         }
+      });
+    }
+  })
+
+</script>

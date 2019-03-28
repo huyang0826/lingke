@@ -1,0 +1,269 @@
+{include file="public/header"}
+<body class="gray-bg" ng-app="app">
+    <div class="row" >
+        <div class="col-sm-9">
+            <div class="wrapper wrapper-content animated fadeInUp">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="m-b-md">
+                                    <a href="project_detail.html#" class="btn btn-white btn-xs pull-right"></a>
+                                    <h2>{$data.name}</h2>
+                                </div>
+                                <dl class="dl-horizontal">
+                                    <dt>状态：</dt>
+                                    <dd><span class="label label-primary">{$data.progress|get_progress}</span>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <dl class="dl-horizontal">
+
+                                    <dt>项目经理：</dt>
+                                    <dd>{$data.bussiness}</dd>
+                                    <dt>版本：</dt>
+                                    <dd>v1.4.2</dd>
+                                </dl>
+                            </div>
+                            <div class="col-sm-7" id="cluster_info">
+                                <dl class="dl-horizontal">
+
+                                    <dt>最后更新：</dt>
+                                    <dd>{$data.create_time|date="Y-m-d",###}</dd>
+                                    <dt>创建于：</dt>
+                                    <dd>{$data.create_time|date="Y-m-d",###}</dd>
+                                    <!-- <dt>团队成员：</dt> -->
+                                    <!-- <dd class="project-people">
+                                        <a href="project_detail.html">
+                                            <img alt="image" class="img-circle" src="img/a3.jpg">
+                                        </a>
+                                        <a href="project_detail.html">
+                                            <img alt="image" class="img-circle" src="img/a1.jpg">
+                                        </a>
+                                        <a href="project_detail.html">
+                                            <img alt="image" class="img-circle" src="img/a2.jpg">
+                                        </a>
+                                        <a href="project_detail.html">
+                                            <img alt="image" class="img-circle" src="img/a4.jpg">
+                                        </a>
+                                        <a href="project_detail.html">
+                                            <img alt="image" class="img-circle" src="img/a5.jpg">
+                                        </a>
+                                    </dd> -->
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <dl class="dl-horizontal">
+                                    <dt>当前进度</dt>
+                                    <dd>
+                                        <div class="progress progress-striped active m-b-sm">
+                                            <div style="width: {$data.progress|get_baifenbi}%;" class="progress-bar"></div>
+                                        </div>
+                                        <small>当前已完成项目总进度的 <strong>{$data.progress|get_baifenbi}%</strong></small>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="row m-t-sm">
+                            <div class="col-sm-12">
+                                <div class="panel blank-panel">
+                                    <div class="panel-heading">
+                                        <div class="panel-options">
+                                            <ul class="nav nav-tabs">
+                                                <li><a href="" data-toggle="tab">团队消息</a>
+                                                </li>
+                                                <a href="{:url('project/project_content_add',array('id'=>$data[
+                                                'id']))}" data-toggle="tab" style="float: right;"><button class="btn-primary btn">添加</button></a>
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab-1">
+                                                <div class="feed-activity-list">
+                                                    {volist name="project_content" id="vo"}
+                                                    <div class="feed-element">
+                                                        <a href="profile.html#" class="pull-left">
+                                                            <img alt="image" class="img-circle" src="__IMG__/profile.jpg">
+                                                        </a>
+                                                        <div class="media-body ">
+                                                            <small class="pull-right">{$vo.create_time|date="Y-m-d H:i:s",###}</small>
+                                                            <strong>{$vo.name}</strong>
+                                                            <br>
+                                                             {$vo.content}
+                                                        </div>
+                                                    </div>
+                                                    {/volist}
+                                                </div>
+
+                                            </div>
+                                            <!-- <div class="tab-pane" id="tab-2">
+
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>状态</th>
+                                                            <th>标题</th>
+                                                            <th>开始时间</th>
+                                                            <th>结束时间</th>
+                                                            <th>说明</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <span class="label label-primary"><i class="fa fa-check"></i> 已完成</span>
+                                                            </td>
+                                                            <td>
+                                                                文档在线预览功能
+                                                            </td>
+                                                            <td>
+                                                                11月7日 22:03
+                                                            </td>
+                                                            <td>
+                                                                11月7日 20:11
+                                                            </td>
+                                                            <td>
+                                                                <p class="small">
+                                                                    已经测试通过
+                                                                </p>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span class="label label-primary"><i class="fa fa-check"></i> 解决中</span>
+                                                            </td>
+                                                            <td>
+                                                                会员登录
+                                                            </td>
+                                                            <td>
+                                                                11月7日 22:03
+                                                            </td>
+                                                            <td>
+                                                                11月7日 20:11
+                                                            </td>
+                                                            <td>
+                                                                <p class="small">
+                                                                    测试中
+                                                                </p>
+                                                            </td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <span class="label label-primary"><i class="fa fa-check"></i> 解决中</span>
+                                                            </td>
+                                                            <td>
+                                                                会员积分
+                                                            </td>
+                                                            <td>
+                                                                11月7日 22:03
+                                                            </td>
+                                                            <td>
+                                                                11月7日 20:11
+                                                            </td>
+                                                            <td>
+                                                                <p class="small">
+                                                                    未测试
+                                                                </p>
+                                                            </td>
+
+                                                        </tr>
+
+
+                                                    </tbody>
+                                                </table>
+
+                                            </div> -->
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="wrapper wrapper-content project-manager">
+                <h4>项目描述</h4>
+                <!-- <img src="__IMG__/wenku_logo.png" class="img-responsive"> -->
+                <p class="small">
+                    <br>{$data.content}
+                </p>
+                <p class="small font-bold">
+                    <span><i class="fa fa-circle text-warning"></i> 高优先级</span>
+                </p>
+               <!--  <div class="col-sm-12">
+                    <h5>项目标签</h5>
+                    <ul class="tag-list" style="padding: 0;">
+                        <li><a href="project_detail.html"><i class="fa fa-tag"></i> 文档</a>
+                        </li>
+                        <li><a href="project_detail.html"><i class="fa fa-tag"></i> 分享</a>
+                        </li>
+                        <li><a href="project_detail.html"><i class="fa fa-tag"></i> 下载</a>
+                        </li>
+                    </ul>
+                </div> -->
+                <div class="col-sm-12" ng-controller="listcontr">
+                    <h5>项目文档</h5>
+                    <ul class="list-unstyled project-files" >
+                        <li ng-repeat="list in lists">
+                            <a href="project_detail.html"><i class="fa fa-file"></i> {{list |map}}</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <div class="m-t-md">
+                    <a href="{:url('project/project_upload',array('id'=>$data['id']))}" class="btn btn-xs btn-primary">添加文档</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="//cdn.bootcss.com/angular.js/1.4.6/angular.min.js"></script>
+
+<script src="//cdn.bootcss.com/angular.js/1.4.6/angular-route.min.js"></script> 
+    <script>
+        $(document).ready(function(){$("#loading-example-btn").click(function(){btn=$(this);simpleLoad(btn,true);simpleLoad(btn,false)})});function simpleLoad(btn,state){if(state){btn.children().addClass("fa-spin");btn.contents().last().replaceWith(" Loading")}else{setTimeout(function(){btn.children().removeClass("fa-spin");btn.contents().last().replaceWith(" Refresh")},2000)}};
+
+
+        var app = angular.module('app',['ngRoute']);
+         app.filter('map', function(){
+
+        var filter = function(input, map_value, append, default_value){
+                var tmp= new Array();//临时变量，用于保存分割字符串 
+                tmp=input.split("/");//按照"/"分割 
+                var cc = tmp[tmp.length-1];//获取最后一部分，即文件名和参数 
+                tmp=cc.split("?");//把参数和文件名分割开 
+                return tmp[0];//返回值 
+            };
+            return filter;
+          });
+        app.controller('listcontr',function ($scope , $http ) {
+            var posturl = '{:url('project/project_files','','')}';
+             var id = '{$data.id}';
+             posturl += '/id/' + id;
+             $http.get(posturl)
+                .success(function (response) {
+                    $scope.lists = response
+                });
+        });
+
+        
+    </script>
+
+</body>
+
+</html>

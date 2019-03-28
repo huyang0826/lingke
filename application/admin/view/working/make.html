@@ -1,0 +1,100 @@
+{include file="public/header"}
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+   
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+           
+            <div class="ibox-content">
+                <div class="row row-lg"><div class="col-sm-12">
+                        <!-- Example Pagination -->
+                        <div class="example-wrap">
+                            <h4 class="example-title">
+                                <div id="toolbar" style="float:left"><a href="{:url('admin/lock/lock_add','','')}"><button  class="btn btn-success">
+                                       添加锁
+                                    </button></a></div>
+                              
+                            </h4><div class="example">
+                         
+                                <table id="table" data-toggle="table"  data-search="true" data-row-style="rowStyle" data-cell-style="cellStyle" data-show-export="true"  data-show-pagination-switch="false" data-pagination="true"  data-page-list="[20, 25, 50, 100, ALL]" data-show-footer="false" data-page-size="20" data-side-pagination="server"     data-url="{:url('admin/lock/index_ajax','','')}">
+                                    <thead>
+                                        <tr><th data-field="state"  ></th>
+<th data-field="lock_id"  >锁ID</th>
+<th data-field="lock_name"  >名称</th>
+<th data-field="operate"  >操作</th>
+</tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End Example Pagination -->
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>{include file="public/footer"}
+<script>
+var $table = $("#table"),
+        $remove = $("#remove"),
+        selections = [];
+ $table.on('click-cell.bs.table', function (e, row,field, value ) {
+       
+    });
+window.operateEvents = {
+        'click .like': function (e, value, row, index) {
+            var url = '{:url('admin/lock/lock_edit','','')}';
+            var id = row.id;
+            window.location.href= url + '/id/' + id;
+        },
+        'click .list':function (e, value, row, index) {
+            var url = '{:url('admin/lock/lock_add','','')}';
+            var id = row.id;
+            window.location.href= url + '/id/' + id;
+        },
+        'click .remove': function (e, value, row, index) {
+              swal({
+                title: '您确定要删除这条信息吗',
+                text: '删除后将无法恢复，请谨慎操作！',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: '删除',
+                closeOnConfirm: false
+            }, function () {
+                $.post('{:url('admin/lock/lock_del','','')}', {'id':row.id}, function(data) {
+                    if(data.status){
+                        swal('删除成功！', '您已经永久删除了这条信息。', 'success');
+                        $table.bootstrapTable('remove', {
+                            field: 'id',
+                            values: [row.id]
+                        });
+                    }else{
+                        swal('删除失败！', data.msg, 'success');
+                    }
+                });
+            });
+        }
+    }
+$table.bootstrapTable({
+            height: getHeight(),
+            columns: [
+                [{"field":"state","title":"","checkbox":true,"width":50,"align":"center","valign":"middle"},{"field":"lock_id","title":"锁ID","checkbox":"","width":50,"align":"center","valign":"middle"},{"field":"lock_name","title":"名称","checkbox":"","width":50,"align":"center","valign":"middle"},{"field":"operate","title":"操作","checkbox":"","width":50,"align":"center","valign":"middle","events":"operateEvents","formatter":"operateFormatter"}]
+            ]
+        });
+function operateFormatter(value, row, index) { return [
+                '<a class="list" href="javascript:void(0)" title="list">',
+                '<i class="glyphicon glyphicon-list"></i>',
+                '</a>  ',
+                '<a class="like" href="javascript:void(0)" title="Like">',
+                '<i class="glyphicon glyphicon-edit"></i>',
+                '</a>  ',
+                '<a class="remove" href="javascript:void(0)" title="Remove">',
+                '<i class="glyphicon glyphicon-remove"></i>',
+                '</a>'
+            ].join('');}
+function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true);
+    }</script>

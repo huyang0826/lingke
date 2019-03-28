@@ -1,0 +1,220 @@
+{include file="public/header"}
+<style type="text/css">
+    .cursor{
+        cursor: pointer;
+
+    }
+    .cursor :hover{
+         text-decoration: underline;
+    }
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+   
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+           
+            <div class="ibox-content">
+                <div class="row row-lg">
+                   
+                    <div class="col-sm-12">
+                        <!-- Example Pagination -->
+                        <div class="example-wrap">
+                            <h4 class="example-title">
+								<div id="toolbar" style="float:left">
+							        <a href="{:url('admin/cash/in_add')}"><button  class="btn btn-success">
+							           记收入
+							        </button></a>
+                                    
+                                        <span style="color: green"><strong>收入:{$total_data.shouru}元</strong></span>
+                                        <span style="color: blue">支出:{$total_data.zhichu}元</span>
+                                        <span style="color: red">结余:{$total_data.shouru - $total_data.zhichu}元</span>
+                                   
+							    </div>
+                              
+                            </h4>
+                            <div class="example">
+                         
+                                <table id="table" data-toggle="table"  data-search="true" data-row-style="rowStyle" data-cell-style="cellStyle" data-show-export="true"  data-show-pagination-switch="false" data-pagination="true"  data-page-list="[20, 25, 50, 100, ALL]" data-show-footer="false" data-page-size="20" data-side-pagination="server" 	data-url="{:url('admin/cash/index_ajax',array('type'=>2))}">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="state" data-checkbox="true"></th>
+                                            <th data-halign="center"data-field="content">说明</th>
+                                            <th data-halign="center" data-field="money">金额</th>
+                                            <th data-halign="center" data-field="user_name">添加者</th>
+                                            <th data-halign="center" data-formatter="date_time" data-field="create_time">时间</th>
+                                            <!-- <th data-halign="center" data-field="operate">操作</th> -->
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End Example Pagination -->
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+    <div style="position: absolute;top:100px;left: 200px;background: #000;z-index: 1000">
+        
+    </div>
+
+{include file="public/footer"}
+<script>
+    var $table = $('#table'),
+        $remove = $('#remove'),
+        selections = [];
+    // $table.on('click-row.bs.table', function (e, row) {
+    //     alert(1);
+    //     console.log(row);
+    // });
+
+    $table.on('click-cell.bs.table', function (e, row,field, value ) {
+        var pid = value.id;
+        if(row == 'name'){
+       	    $table.bootstrapTable('refresh',{query: {pid: pid,offset:0}});
+        }
+    });
+
+    // $table.on('dbl-click-row.bs.table', function (e, row) {
+    //    swal({
+    //             title: "您确定要删除这条信息吗",
+    //             text: "删除后将无法恢复，请谨慎操作！",
+    //             type: "warning",
+    //             showCancelButton: true,
+    //             confirmButtonColor: "#DD6B55",
+    //             confirmButtonText: "删除",
+    //             closeOnConfirm: false
+    //         }, function () {
+    //             swal("删除成功！", "您已经永久删除了这条信息。", "success");
+    //         });
+    // });
+
+   
+    window.operateEvents = {
+        'click .like': function (e, value, row, index) {
+           // alert('You click like action, row: ' + JSON.stringify(row));
+            var url = '{:url('woanfang/menu_edit','','')}';
+            var id = row.id;
+            window.location.href= url + '/id/' + id;
+        },
+        'click .list':function (e, value, row, index) {
+            var url = '{:url('lock/access_user','','')}';
+            var lock_id = row.id;
+            window.location.href= url + '/lock_id/' + lock_id;
+        },
+        'click .remove': function (e, value, row, index) {
+              swal({
+                title: "您确定要删除这条信息吗",
+                text: "删除后将无法恢复，请谨慎操作！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "删除",
+                closeOnConfirm: false
+            }, function () {
+                $.post('{:url('woanfang/menu_del')}', {'id':row.id}, function(data) {
+                    if(data.status){
+                        swal("删除成功！", "您已经永久删除了这条信息。", "success");
+                        $table.bootstrapTable('remove', {
+                            field: 'id',
+                            values: [row.id]
+                        });
+                    }else{
+                        swal("删除失败！", data.msg, "success");
+                    }
+                });
+            });
+        }
+    };
+
+    $table.bootstrapTable({
+            height: getHeight(),
+            columns: [
+                [
+                    
+                    {
+                        field: 'state',
+                        checkbox: true,
+                        rowspan: 1,
+                        width:50,
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field:'content',
+                        title:'说明',
+                        class:'cursor',
+                        align: 'center'
+                    },
+                    {
+                        field:'money',
+                        title:'金额',
+                        align: 'center'
+                    },
+                    {
+                        field:'user_name',
+                        title:'添加者',
+                        align: 'center'
+                    },
+                    {
+                        field:'create_time',
+                        title:'时间',
+                        align: 'center'
+                    }
+                    // {
+                    //     field: 'operate',
+                    //     title: '操作',
+                    //     align: 'center',
+                    //     events: operateEvents,
+                    //     formatter: operateFormatter
+                    // }
+                ]
+            ]
+        });
+  
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.id
+        });
+    }
+
+    function responseHandler(res) {
+        $.each(res.rows, function (i, row) {
+            row.state = $.inArray(row.id, selections) !== -1;
+        });
+        return res;
+    }
+
+
+
+    function operateFormatter(value, row, index) {
+        return [
+                '<a class="list" href="javascript:void(0)" title="授权">',
+                '<i class="glyphicon glyphicon-list"></i>',
+                '</a>  ',
+                '<a class="like" href="javascript:void(0)" title="Like">',
+                '<i class="glyphicon glyphicon-edit"></i>',
+                '</a>  ',
+                '<a class="remove" href="javascript:void(0)" title="Remove">',
+                '<i class="glyphicon glyphicon-remove"></i>',
+                '</a>'
+            ].join('');
+    }
+
+   
+
+    function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true);
+    }
+
+
+function date_time(value,row) {
+    
+    return    moment(value * 1000).format("YYYY-MM-DD HH:mm:ss")
+}
+
+</script>

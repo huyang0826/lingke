@@ -1,0 +1,80 @@
+ <!-- 公共 -->
+  <div class="footer">
+    <div class="wrapper clearfix">
+      <div class="footer_ct1 fl">
+        <ul>
+          <li><h3>常见问题</h3></li>
+          <li><a href="#">帮助中心</a></li>
+          <li><a href="#">创意问题</a></li>
+          <li><a href="#">视频问题</a></li>
+        </ul>
+        <ul>
+          <li><h3>关于我们</h3></li>
+          <li><a href="#">关于我们</a></li>
+          <li><a href="#">平台介绍</a></li>
+          <li><a href="#">联系我们</a></li>
+        </ul>
+      </div>
+      <div class="footer_ct2 fl">
+        <h3>常见问题</h3>
+        <div>400-8888-8888（周一至周五9:00-18:00）</div>
+        <div>service@lingkeshijue.com</div>
+      </div>
+      <div class="footer_ct3 fr">
+        <div class="fl"><img src="__HOMEIMG__/ewm.png" /><br/>微博二维码</div>
+        <div class="fl"><img src="__HOMEIMG__/ewm.png" /><br/>微信二维码</div>
+      </div>
+    </div>
+    <div class="bfooter_btm">京ICP备:12345678号</div>
+  </div>
+  <!-- 固定 -->
+  <div class="gd right1">
+    <a href="javascript:;" class="right2">
+      <img class="pht" src="__HOMEIMG__/right1.png" /><br />客服
+    </a>
+    <a href="javascript:;" class="right2">
+      <img class="pht" src="__HOMEIMG__/right2.png" /><br />收藏
+    </a>
+    <a href="javascript:;" class="right2 ewm">
+      <img class="pht" src="__HOMEIMG__/right3.png" /><br />二维码
+      <div class="img">
+        <img src="__HOMEIMG__/ewm.png" alt="">
+      </div>
+    </a>
+  </div>
+
+<script src="__HOMEJS__/jquery-1.11.3.min.js"></script>
+<script src="__HOMEJS__/swiper.js"></script>
+
+<script>
+  // 公共head
+  $(function() {
+    $(".head_top ul .head_top_nav").click(function() {
+      $(this).addClass("active").siblings().removeClass("active");
+    })
+    $(".head_ct_c .hide p").click(function() {
+      var val = $(this).text()
+      var val1 = "查找" + val + "...";
+      $(".head_ct_c .xz span").text($(this).text());
+      $(".head_ct_c input").attr("placeholder", val1);
+      $(".head_ct_c .hide").hide()
+    })
+    $('.head_ct_c .xz').hover(function () {
+      $('.head_ct_c .hide').show();
+    }, function () {
+      $('.head_ct_c .hide').hide();
+    });
+  })
+  
+  // 固定右边
+  $('.gd .right2').hover(function () {
+    var This = $(this).index() + 1;
+    $(this).find('.pht').attr('src', '__HOMEIMG__/right' + This + '_1.png');
+  }, function () {
+    var This = $(this).index() + 1;
+    $(this).find('.pht').attr('src', '__HOMEIMG__/right' + This + '.png');
+  })
+
+ 
+
+</script>

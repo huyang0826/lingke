@@ -1,0 +1,43 @@
+{include file="public/header"}
+<body>
+<div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>上传文件<small></small></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data">
+                            <div class="form-group">
+						        <label class="col-sm-3 control-label">项目名称:</label>
+						        <div class="col-sm-9">
+                                <input type="hidden" name="id" value="{$data.id}">
+						            <input type="text" name="name" disabled class="form-control" value="{$data.name}"> <span class="help-block m-b-none"></span>
+
+						        </div>
+						    </div>
+                            
+                          
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">文件:</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="files" class="form-control">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-4">
+                                    <button class="btn btn-primary" type="submit">保存</button>
+                                    <button class="btn btn-white" onclick="javascript:history.go(-1)">取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{include file="public/footer"}
+<script>
+    $("#data_1 .input-group.date").datepicker({todayBtn:"linked",keyboardNavigation:!1,forceParse:!1,calendarWeeks:!0,autoclose:!0})
+</script>

@@ -1,0 +1,40 @@
+{include file="public/header"}
+<style type="text/css">
+    .cursor{
+        cursor: pointer;
+
+    }
+    .cursor :hover{
+         text-decoration: underline;
+    }
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+   
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+           
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                    {volist name="filesnames" id="vo"}
+                        <img class="icon-waf" data-name="{$vo}" src="__IMG__/woanfang_icon/{$vo}">
+                    {/volist}
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+    <div style="position: absolute;top:100px;left: 200px;background: #000;z-index: 1000">
+        
+    </div>
+
+{include file="public/footer"}
+<script>
+   $('.icon-waf').click(function(event) {
+       alert($(this).data('name'));
+       $('#icon').val($(this).data('name'));
+   });
+</script>

@@ -1,0 +1,117 @@
+{include file="public/header"}
+<script type="text/javascript" src="__JS__/camera/cyberplayer.js"></script>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+   
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+           
+            <div class="ibox-content">
+                <div class="row row-lg">
+                   
+                    <div class="col-sm-12">
+                        <div id="playercontainer" style="width:100%;" >
+                
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+    <div style="position: absolute;top:100px;left: 200px;background: #000;z-index: 1000">
+        
+    </div>
+<script>
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+                    "SymbianOS", "Windows Phone",
+                    "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+    $('.lists').css('margin-top',window.innerWidth/16*9);
+    $('#info').css('margin-top',window.innerWidth/16*9+50);
+    $('#tuijian').css('margin-top',window.innerWidth/16*9+50);
+    if(IsPC()){
+        var file = "<?php echo $list['rtmp'];?>";
+    }else{
+        var file = "<?php echo $list['hls'];?>";
+        
+    }
+    var player = cyberplayer("playercontainer").setup({
+        width: '100%',
+        height: window.innerWidth/16*9,
+        stretching: "uniform",
+        file: file,
+        autostart: true,
+        repeat: false,
+        volume: 100,
+        controls:true,
+        rtmp: {
+            reconnecttime: 5,
+            bufferlength: 1
+        },
+        controlbar:{
+            barLogo:0,
+        },
+        flashplayer:'__JS__/camera/cyberplayer.flash.swf',
+        ak:'6dc387f1da62484eb91ec78a27b9b0b3'
+    });
+    $.ajax({
+        url: 'http://app2.qxdqapp.com/Camera/' + '{$list.id}',
+        type: 'GET',
+        dataType: 'json',
+        data: {},
+         success: function(data){
+            var ScrollText = '';
+            for (var i = 0; i < data.ScrollText.length; i++) {
+                var ii = data.ScrollText[i];
+                ScrollText += '<span class="scrolltextwitdh">' + ii + '</span>';
+            }
+            var ScrollTextBackgroundColor = data.ScrollTextBackgroundColor;
+            var Scrollamount = data.Scrollamount;
+            var ScrollTextBackgroundOpacity = 0.5;//data.ScrollTextBackgroundOpacity;
+                $('.jw-controls-right').after('<marquee direction="left" style="width:100%;position: absolute;left:0px;bottom: 0px;font-size:20px;line-height:20px;color:red;background: ' + ScrollTextBackgroundColor + ';opacity: '+ ScrollTextBackgroundOpacity+ ';" onmouseout="this.start()" onmouseover="this.stop()" scrollamount="' +Scrollamount  +'" scrolldelay="1">'+ ScrollText +'</marquee>');
+            $('.scrolltextwitdh').css('margin-right', window.innerWidth +10);
+
+        },
+        error: function(xhr, type){
+            alert('网络错误');
+            // 即使加载出错，也得重置
+        }
+    })
+
+    </script>
+   <script type="text/javascript">
+    // 创建一个Socket实例
+    var socket = new WebSocket('ws://121.40.213.105:9510'); 
+    // 打开Socket 
+    socket.onopen = function(event) { 
+        // 发送一个初始化消息
+        var obj = new Object(); 
+        obj.action = "join"; //加入频道
+        obj.cid = '{$list.id}'; //摄像头id
+        obj.type = 1;//类型为1
+        var obj = JSON.stringify(obj); 
+        socket.send(obj); 
+        // 监听消息
+        socket.onmessage = function(event) { 
+        console.log(event.data);
+      }; 
+      // 监听Socket的关闭
+      socket.onclose = function(event) { 
+        console.log('Client notified socket has closed',event); 
+      }; 
+    };
+</script> 
+{include file="public/footer"}

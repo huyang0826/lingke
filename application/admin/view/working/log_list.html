@@ -1,0 +1,245 @@
+{include file="public/header"}
+<style type="text/css">
+    .cursor{
+        cursor: pointer;
+
+    }
+    .cursor :hover{
+         text-decoration: underline;
+    }
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+   
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+           
+            <div class="ibox-content">
+                <div class="row row-lg">
+                   
+                    <div class="col-sm-12">
+                        <!-- Example Pagination -->
+                        <div class="example-wrap">
+                            <h4 class="example-title">
+								<div id="toolbar" style="float:left">
+							        <a href="{:url('admin/working/log_add')}"><button  class="btn btn-success">
+							             添加工作日志
+							        </button></a>
+                                </div>
+                              
+                            </h4>
+
+                            <div class="example">
+                                <div class="fixed-table-toolbar">
+                                    <div class="bs-bars pull-left" style="margin-bottom: 5px">
+                                        <div id="toolbar" class="form-inline">
+                                            
+                                            
+                                            <div class="form-group" style="margin-left: 20px">
+                                                <input placeholder="开始日期" class="form-control layer-date" id="start">
+                                                <input placeholder="结束日期" class="form-control layer-date" id="end">
+                                            </div>
+                                            <div class="form-group" style="margin-left: 20px">
+                                                <input type="text" name="search" class="form-control" placeholder="搜索">
+                                                
+                                            </div>
+                                            <div class="form-group" style="margin-left: 20px">
+                                                <span class="btn btn-info" id="search" style="margin-bottom:0px">搜索</span>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+                                <table id="table" data-toggle="table"  data-search="false" data-row-style="rowStyle" data-cell-style="cellStyle" data-show-export="true"  data-show-pagination-switch="false" data-pagination="true"  data-page-list="[20, 25, 50, 100, ALL]" data-show-footer="false" data-page-size="20" data-side-pagination="server" 	data-url="{:url('admin/working/log_ajax')}">
+                                    <thead>
+                                        <tr>
+                                            <th data-field="state" data-checkbox="true"></th>
+                                            <th data-halign="center"data-field="name">项目名称</th>
+                                            <th data-halign="center" data-field="today_conment">今日内容</th>
+                                            <th data-halign="center" data-field="tomorrow_content">明日内容</th>
+                                            <th data-halign="center" data-field="cuid">用户</th>
+                                            <th data-halign="center" data-formatter="date_time" data-field="create_time">时间</th>
+                                            <th data-halign="center" data-field="operate">操作</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End Example Pagination -->
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+    
+
+{include file="public/footer"}
+<script>
+    var $table = $('#table'),
+        $remove = $('#remove'),
+        selections = [];
+    // $table.on('click-row.bs.table', function (e, row) {
+    //     alert(1);
+    //     console.log(row);
+    // });
+
+    $table.on('click-cell.bs.table', function (e, row,field, value ) {
+        var pid = value.id;
+        if(row == 'name'){
+       	    $table.bootstrapTable('refresh',{query: {pid: pid,offset:0}});
+        }
+    });
+
+    // $table.on('dbl-click-row.bs.table', function (e, row) {
+    //    swal({
+    //             title: "您确定要删除这条信息吗",
+    //             text: "删除后将无法恢复，请谨慎操作！",
+    //             type: "warning",
+    //             showCancelButton: true,
+    //             confirmButtonColor: "#DD6B55",
+    //             confirmButtonText: "删除",
+    //             closeOnConfirm: false
+    //         }, function () {
+    //             swal("删除成功！", "您已经永久删除了这条信息。", "success");
+    //         });
+    // });
+
+   
+    window.operateEvents = {
+        'click .remove':function (e, value, row, index) {
+            var url = '{:url('working/log_del','','')}';
+            var  id = row.id;
+            window.location.href= url + '/id/' + id;
+        },
+        
+    };
+
+    $table.bootstrapTable({
+            height: getHeight(),
+            columns: [
+                [
+                    
+                    {
+                        field: 'state',
+                        checkbox: true,
+                        rowspan: 1,
+                        width:50,
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        field:'project_name',
+                        title:'项目名称',
+                        class:'cursor',
+                        align: 'center'
+                    },
+                    {
+                        field:'today_content',
+                        title:'今日内容',
+                        class:'cursor',
+                        align: 'center'
+                    }
+                    ,
+                    {
+                        field:'tomorrow_content',
+                        title:'明日内容',
+                        class:'cursor',
+                        align: 'center'
+                    },
+                    {
+                        field:'cuid',
+                        title:'用户',
+                        class:'cursor',
+                        align: 'center'
+                    },
+                    {
+                        field:'create_time',
+                        title:'时间',
+                        align: 'center'
+                    },
+                    {
+                        field: 'operate',
+                        title: '操作',
+                        align: 'center',
+                        events: operateEvents,
+                        formatter: operateFormatter
+                    }
+                ]
+            ]
+        });
+  
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.id
+        });
+    }
+
+    function responseHandler(res) {
+        $.each(res.rows, function (i, row) {
+            row.state = $.inArray(row.id, selections) !== -1;
+        });
+        return res;
+    }
+
+
+
+    function operateFormatter(value, row, index) {
+        return [
+                '<a class="remove" href="javascript:void(0)" title="Remove">',
+                    '<i class="glyphicon glyphicon-remove"></i>',
+                '</a>'
+                ].join('');
+    }
+
+   
+
+    function getHeight() {
+        return $(window).height() - $('h1').outerHeight(true);
+    }
+
+
+/**
+ * [date_time 格式化时间]
+ * @param  {[type]} value [description]
+ * @param  {[type]} row   [description]
+ * @return {[type]}       [description]
+ */
+function date_time(value,row) {
+    
+    return    moment(value * 1000).format("YYYY-MM-DD HH:mm:ss")
+}
+
+
+$('#search').click(function(event) {
+    $table.bootstrapTable('refresh',{query: { is_bao : $('#is_bao').val(),start:$('#start').val(),end:$('#end').val(),cuid:$('#cuid').val(),offset:0,'search':$('input[name=search]').val()}});
+});
+var start={elem:"#start",format:"YYYY/MM/DD hh:mm:ss",max:"2099-06-16 23:59:59",istime:true,istoday:false,choose:function(datas){end.min=datas;end.start=datas}};var end={elem:"#end",format:"YYYY/MM/DD hh:mm:ss",max:"2099-06-16 23:59:59",istime:true,istoday:false,choose:function(datas){start.max=datas}};laydate(start);laydate(end);
+
+function show_files(id) {
+    var posturl = '{:url('project/project_files')}'
+    $.post(posturl, {'id':id}, function(data) {
+        var html = '<div class="row">';
+
+        for (var i = 0; i < data.length; i++) {
+            var ii = data[i];
+            html += '<div class="col-sm-12" style="margin-bottom: 10px"><a href="' + ii + '">' + GetPageurl(ii) + '</a></div>';
+        }
+        html += '</div>';
+        $('#modal-body-content').html(html);
+        $('#myModal2').modal('show');
+    });
+    
+}
+//获取页面文件名和参数 
+    function GetPageurl(url) 
+    { 
+        var tmp= new Array();//临时变量，用于保存分割字符串 
+        tmp=url.split("/");//按照"/"分割 
+        var cc = tmp[tmp.length-1];//获取最后一部分，即文件名和参数 
+        tmp=cc.split("?");//把参数和文件名分割开 
+        return tmp[0];//返回值 
+    }
+</script>

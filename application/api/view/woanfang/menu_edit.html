@@ -1,0 +1,104 @@
+{include file="public/header"}
+<body>
+<div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>编辑菜单 <small></small></h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal">
+                            <div class="form-group">
+						        <label class="col-sm-3 control-label">标题:</label>
+						        <div class="col-sm-9">
+						            <input type="text" name="name" required="true" class="form-control" value="{$info.name|default=''}"> <span class="help-block m-b-none"></span>
+
+						        </div>
+						    </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">图标:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="icon" id="icon" required="true" class="form-control" value="{$info.icon|default=''}"> <span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">类型:</label>
+                                <div class="col-sm-9">
+                                    <div class="radio"  >
+                                       <label>
+                                          <input type="radio" name="type" 
+                                             value="1" <?php if($info['type']== 1){echo 'checked';}?> > 链接
+                                       </label>
+                                       <label>
+                                          <input type="radio" name="type" 
+                                             value="2" <?php if($info['type']== 2){echo 'checked';}?> > 摄像头
+                                       </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">URL:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="url" id="url"  class="form-control" value="{$info.url|default=''}"> <span class="help-block m-b-none"></span>
+                                </div>
+                            </div>
+						    <div class="form-group">
+						        <label class="col-sm-3 control-label">排序:</label>
+						        <div class="col-sm-9">
+						            <input type="text" required="true" class="form-control" name="sort" value="{$info.sort|default=''}"> <span class="help-block m-b-none"></span>
+						        </div>
+						    </div>
+						   
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-4">
+                                    <input type="hidden" name="id" value="{$info.id}">
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button onclick="javascript:history.back(-1);return false;" class="btn btn-white" >取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal -->
+        <div class="modal fade" id="modal-icon" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="width: auto;margin: 160px auto;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body" id="">
+                {volist name="filesnames" id="vo"}
+                    <img class="icon-waf" data-name="{$vo}" src="__IMG__/woanfang_icon/{$vo}">
+                {/volist}
+          </div>
+          <div class="modal-footer">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+<script>
+    $('#icon').click(function(event) {
+        $('#modal-icon').modal('show');
+    });
+    $('.icon-waf').click(function(event) {
+       // alert($(this).data('name'));
+       $('#icon').val($(this).data('name'));
+       $('#modal-icon').modal('hide');
+    });
+
+</script>
+{include file="public/footer"}
