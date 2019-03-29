@@ -76,7 +76,7 @@ class UserController extends AdminController
                     $this->error('修改失败',url('user_list_pt'));
                 }
             }else{
-                $this->error('修改失败',url('user_list_pt'));
+                $this->error($check,url('user_list_pt'));
             }
             
         }else{
