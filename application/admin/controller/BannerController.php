@@ -15,7 +15,9 @@ class BannerController extends AdminController
    
     public function banner_ajax($search='')
     {
+        
         $where = [];
+        
         if($search){
             $where['name|mobilephone'] = array('like',"%$search%");
         }
