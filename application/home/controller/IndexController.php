@@ -12,7 +12,7 @@ class IndexController extends Controller
 
        	$type = Db::name('type')->where('type',1)->where('status',1)->order('sort asc')->select();
        	$this->assign('type',$type);
-        return view();
+        return view();   
     }
 
 
