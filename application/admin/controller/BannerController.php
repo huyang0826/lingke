@@ -20,12 +20,12 @@ class BannerController extends AdminController
             $where['name|mobilephone'] = array('like',"%$search%");
         }
      
-        $count = Db::name('member')->where($where)->count();
+        $count = Db::name('banner')->where($where)->count();
         $offset = input('offset')?:0;
         $pagesize =input('limit')?:20;
 
-        $data = Db::name('member')->where($where)->field("id,mobilephone,name,addtime")
-        ->limit($offset,$pagesize)->select();
+        $data = Db::name('banner')->where($where)->field("id,url,pic_url,sort,case when status =1 then '显示' when status =2 then '隐藏' end status ")
+        ->limit($offset,$pagesize)->order('sort asc')->select();
 
 
         return json(['rows'=>$data,'total'=>$count]);
@@ -38,7 +38,7 @@ class BannerController extends AdminController
             if($file){
 
                 $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'. DS . 'banner');
-                $data['pic_url'] = '/uploads/'. DS . 'banner/'.$info->getSaveName();
+                $data['pic_url'] = '/uploads'. DS . 'banner/'.$info->getSaveName();
                
             }
 
@@ -54,25 +54,31 @@ class BannerController extends AdminController
             return view();
         }
     }
-    public function banner_edit($id='')
+    public function banner_edit(Request $request,$id='')
     {
-        if($_POST){
+        if($_POST||$_FILES){
             $data = input('post.');
-            $data['addtime'] = date('Y-m-d H:i:s',time());
-            $check = validate('memberedit') -> check($data);
-            if($check){
-                $rs = Db::table('th_member')->where('id',$id)->update($data);
-                if($rs){
-                    $this->success('修改成功',url('user_list_pt'));
-                }else{
-                    $this->error('修改失败',url('user_list_pt'));
-                }
-            }else{
-                $this->error('修改失败',url('user_list_pt'));
+
+            $file = $request->file('pic_url');
+
+            if($file){
+
+                $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads'. DS . 'banner');
+                $data['pic_url'] = '/uploads'. DS . 'banner/'.$info->getSaveName();
+               
             }
+
+           
+            $rs = Db::table('th_banner')->where('id',$id)->update($data);
+            if($rs){
+                $this->success('修改成功',url('banner_list'));
+            }else{
+                $this->error('修改失败',url('banner_list'));
+            }
+           
             
         }else{
-            $data = Db::name('member')->where('id',$id)->find();
+            $data = Db::name('banner')->where('id',$id)->find();
             $this->assign('data',$data);
             return view();
         }
@@ -80,7 +86,7 @@ class BannerController extends AdminController
   
     public function banner_del($id='')
     {
-        $rs = Db::name('member')->where('id',$id)->delete();
+        $rs = Db::name('banner')->where('id',$id)->delete();
         if($rs){
             return json(['status'=>1]);
         }

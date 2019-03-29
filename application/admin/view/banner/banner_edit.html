@@ -8,36 +8,38 @@
                     </div>
                     <div class="ibox-content">
                         <form method="post" class="form-horizontal" enctype="multipart/form-data">
+
+                            <input type="hidden" name="id" value="{$data['id']}">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">用户名称:</label>
+                                <label class="col-sm-3 control-label">banner:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="user_name" value="{$data.user_name}" required="true" class="form-control" placeholder="请输入用户名称" readonly="readonly"> <span class="help-block m-b-none"></span>
+                                    <input type="file" name="pic_url" class="form-control"> <span class="help-block m-b-none"></span>
 
                                 </div>
                             </div>
-                            <!-- <div class="form-group">
-                                <label class="col-sm-3 control-label">密码:</label>
-                                <div class="col-sm-9">
-                                    <input type="password" name="password" value="{$data.password}" required="true" class="form-control" placeholder="请输入手机号"> <span class="help-block m-b-none"></span>
-
-                                </div>
-                            </div> -->
+                           
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">手机号:</label>
+                                <label class="col-sm-3 control-label">排序:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="mobilephone" value="{$data.mobilephone}" readonly="readonly" required="true" class="form-control" placeholder="请输入手机号"> <span class="help-block m-b-none"></span>
+                                    <input type="text" name="sort" value="{$data.sort}"  required="true" class="form-control" placeholder="请输入排序"> <span class="help-block m-b-none"></span>
 
                                 </div>
                             </div>
-
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">跳转链接:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" required="true" class="form-control"value="{$data.url}" name="url" placeholder="请输入跳转链接"> <span class="help-block m-b-none"></span>
+                                </div>
+                            </div>
+    
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">状态:</label>
                                 <div class="col-sm-9">
                     
                                     <select  class="form-control" name="status" required="true">
                                         <option value="">请选择状态</option>
-                                        <option value="1" {if condition="$data.status eq 1"}selected{/if}>开启</option>
-                                        <option value="2" {if condition="$data.status eq 2"}selected{/if}>停用</option>
+                                        <option value="1" {if condition="$data.status eq 1"}selected{/if}>显示</option>
+                                        <option value="2" {if condition="$data.status eq 2"}selected{/if}>隐藏</option>
                                             
                                     </select>
 
