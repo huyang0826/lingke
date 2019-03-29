@@ -36,6 +36,7 @@
                                     <thead>
                                         <tr>
                                             <th data-field="state" data-checkbox="true"></th>
+                                            <th data-halign="center"data-field="id">ID</th>
                                             <th data-halign="center"data-field="name">用户名</th>
                                             <th data-halign="center" data-field="mobilephone">手机号</th>
                                             <th data-halign="center" data-field="addtime">注册时间</th>
@@ -100,7 +101,7 @@
             window.location.href= url + '/id/' + id;
         },
         'click .list':function (e, value, row, index) {
-            var url = '{:url('user/user_add_pt','','')}';
+            var url = '{:url('user/user_details_pt','','')}';
             var menu_id = row.id;
             window.location.href= url + '/id/' + menu_id;
         },
@@ -143,6 +144,12 @@
                         valign: 'middle'
                     },
                     {
+                        field:'id',
+                        title:'ID',
+                        class:'cursor',
+                        align: 'center'
+                    },
+                    {
                         field:'name',
                         title:'用户名',
                         class:'cursor',
@@ -156,6 +163,11 @@
                     {
                         field:'addtime',
                         title:'注册时间',
+                        align: 'center'
+                    },
+                    {
+                        field:'status',
+                        title:'状态',
                         align: 'center'
                     },
                    
@@ -192,17 +204,31 @@
     }
 
     function operateFormatter(value, row, index) {
+        // return [
+        //         // '<a class="list" href="javascript:void(0)" title="list">',
+        //         // '<i class="glyphicon glyphicon-list"></i>',
+        //         // '</a>  ',
+        //         '<a class="like" href="javascript:void(0)" title="编辑">',
+        //         '<i class="glyphicon glyphicon-edit"></i>',
+        //         '</a>  ',
+        //         '<a class="remove" href="javascript:void(0)" title="删除">',
+        //         '<i class="glyphicon glyphicon-remove"></i>',
+        //         '</a>'
+        //     ].join('');
         return [
-                // '<a class="list" href="javascript:void(0)" title="list">',
-                // '<i class="glyphicon glyphicon-list"></i>',
-                // '</a>  ',
-                '<a class="like" href="javascript:void(0)" title="编辑">',
-                '<i class="glyphicon glyphicon-edit"></i>',
-                '</a>  ',
-                '<a class="remove" href="javascript:void(0)" title="删除">',
-                '<i class="glyphicon glyphicon-remove"></i>',
-                '</a>'
-            ].join('');
+            '<div class="btn-group">',
+            '<button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">操作 <span class="caret"></span>',
+            '</button>',
+            '<ul class="dropdown-menu">',
+                '<li><a class="like">编辑</ a>',
+                '</li>',
+                '<li><a class="remove">删除</ a>',
+                '</li>',
+                '<li><a class="list">详情</ a>',
+                '</li>',
+            '</ul>',
+            '</div>'
+        ].join('');
     }
 
    

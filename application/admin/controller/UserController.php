@@ -32,8 +32,10 @@ class UserController extends AdminController
         $offset = input('offset')?:0;
         $pagesize =input('limit')?:20;
 
-        $data = Db::name('member')->where($where)->field("id,mobilephone,name,addtime")
-        ->limit($offset,$pagesize)->select();
+        $data = Db::name('member')->where($where)->field("id,mobilephone,name,addtime,case when status =1 then '正常' when status =2 then '禁用' end status")
+        ->limit($offset,$pagesize)
+        ->order('id desc')
+        ->select();
 
 
         return json(['rows'=>$data,'total'=>$count]);
@@ -98,6 +100,15 @@ class UserController extends AdminController
         
     }
 
+     public function user_details_pt($id='')
+    {
+        $rs = Db::name('member')->where('id',$id)->find();
+
+        $this->assign('data',$rs);
+        return view();
+        
+    }
+
     public function user_list_tg()
     {
        if($_GET){
@@ -118,20 +129,21 @@ class UserController extends AdminController
     {
         $where = ['type'=>2];
         if($search){
-            $where['mt.name|m.mobilephone'] = array('like',"%$search%");
+            $where['mobilephone'] = array('like',"%$search%");
         }
         if($sh){
-            $where['m.sh'] = array('eq',$sh);
+            $where['sh'] = array('eq',$sh);
         }
-       
+    
         $count = Db::name('member')->where($where)->count();
         $offset = input('offset')?:0;
         $pagesize =input('limit')?:20;
         $data = Db::name('member m')
         ->join('tgmember_info mt','m.id = mt.uid','left')
         ->where($where)
-        ->field("m.id,m.mobilephone,mt.name,m.addtime")
+        ->field("m.id,m.mobilephone,mt.name,m.addtime,case when status =1 then '正常' when status =2 then '禁用' end status")
         ->limit($offset,$pagesize)
+        ->order('id desc')
         ->select();
 
         return json(['rows'=>$data,'total'=>$count]);
@@ -194,6 +206,19 @@ class UserController extends AdminController
         if($rs){
             return json(['status'=>1]);
         }
+        
+    }
+
+     public function user_details_tg($id='')
+    {
+        $rs = Db::name('member m')
+        ->join('th_tgmember_info t','m.id = t.uid')
+        ->where('m.id',$id)
+        ->field('t.* ,m.mobilephone,m.status,m.addtime')
+        ->find();
+
+        $this->assign('data',$rs);
+        return view();
         
     }
 }

@@ -102,7 +102,7 @@
                       <span>账户名称<i>*</i></span>
                     </div>
                     <div class="fl rtt2">
-                      <input class="sr" type="text" name="name" id="name" placeholder="请输入账户名称">
+                      <input class="sr" type="text" name="name" id="name" value="{$data['name']}" placeholder="请输入账户名称">
                     </div>
                   </div>
     
@@ -111,8 +111,8 @@
                       <span>性别<i>*</i></span>
                     </div>
                     <div class="fl rtt2" >
-                      <label for="gender"><input type="radio" name="gender" id="gender" value="1" checked> 男</label>
-                      <label for="gender1"><input type="radio" name="gender" id="gender1" value="2"> 女</label>
+                      <label for="gender"><input type="radio" name="gender" id="gender" value="1"  {if condition="$data['sex'] eq 1"}checked{/if} checked> 男</label>
+                      <label for="gender1"><input type="radio" name="gender" id="gender1" value="2" {if condition="$data['sex'] eq 2"}checked{/if}> 女</label>
                       
                     </div>
                   </div>
@@ -122,7 +122,7 @@
                       <span>邮箱<i>*</i></span>
                     </div>
                     <div class="fl rtt2">
-                      <input class="sr" type="text" name="email" id="email" placeholder="请输入邮箱">
+                      <input class="sr" type="text" name="email" id="email"  value="{$data['email']}" placeholder="请输入邮箱">
                     </div>
                   </div>
     
@@ -131,7 +131,7 @@
                       <span>微信<i>*</i></span>
                     </div>
                     <div class="fl rtt2">
-                      <input class="sr" type="text" name="weixin" id="weixin"  placeholder="请输入微信号">
+                      <input class="sr" type="text" name="weixin" id="weixin" value="{$data['weixin']}" placeholder="请输入微信号">
                     </div>
                   </div>
 
@@ -149,7 +149,7 @@
                       <span>作品链接<i>*</i></span>
                     </div>
                     <div class="fl rtt2">
-                      <input class="sr" type="text" name="url" id="url" placeholder="请输入作品链接">
+                      <input class="sr" type="text" name="url" id="url" value="{$data['url']}" placeholder="请输入作品链接">
                     </div>
                   </div>
     
@@ -158,7 +158,7 @@
                       <span>擅长领域<i>*</i></span>
                     </div>
                     <div class="fl rtt2">
-                      <input class="sr" type="text" name="scly" id="scly" placeholder="请输入擅长领域">
+                      <input class="sr" type="text" name="scly" id="scly" value="{$data['scly']}" placeholder="请输入擅长领域">
                     </div>
                   </div>
     
@@ -167,7 +167,7 @@
                       <span>优势资源<i>*</i></span>
                     </div>
                     <div class="fl rtt2">
-                      <input class="sr" type="text" name="zyys"   id="zyys" placeholder="请输入优势资源">
+                      <input class="sr" type="text" name="zyys"   id="zyys"  value="{$data['zyys']}" placeholder="请输入优势资源">
                     </div>
                   </div>
     
@@ -176,7 +176,7 @@
                       <span>自我介绍<i>*</i></span>
                     </div>
                     <div class="fl rtt2">
-                      <textarea  cols="30" rows="10" placeholder="自我介绍..." name="introduce" id="introduce" ></textarea>
+                      <textarea  cols="30" rows="10" placeholder="自我介绍..." name="introduce" id="introduce" >{$data['introduce']}</textarea>
                     </div>
                   </div>
 
@@ -191,9 +191,9 @@
                 
 
               </div>
-              <input type="hidden" id="sf_img_zheng" value="">
-              <input type="hidden" id="sf_img_fan" value="">
-              <input type="hidden" id="bank_card_img" value="">
+              <input type="hidden" id="sf_img_zheng" value="{$data['sf_img_zheng']}">
+              <input type="hidden" id="sf_img_fan" value="{$data['sf_img_fan']}">
+              <input type="hidden" id="bank_card_img" value="{$data['bank_card_img']}">
               <div class="right_top3">
                 <div class="right_top3_1">
                   <span>基本信息</span>
@@ -205,7 +205,7 @@
                       <span>本人身份证号<i>*</i></span>
                     </div>
                     <div class="fl rtm2">
-                      <input class="sr" type="text" id="sf_card" placeholder="请输入身份证号">
+                      <input class="sr" type="text" id="sf_card"  value="{$data['sf_card']}"  placeholder="请输入身份证号">
                     </div>
                   </div>
                   <div class="top3_btm clearfix">
@@ -216,7 +216,7 @@
                       <div class="ct upload">
                            <!-- <a href="javascript:;"><img src="__HOMEIMG__/jia.png" alt=""></a> -->
                             <div class="picDis1">
-                              <img src="" alt="" style="width: 246px;height:136px;" >
+                              <img src="{$data['sf_img_zheng']}" alt="" style="width: 246px;height:136px;" >
                             </div>
                             <input onchange="preview1()"  type="file" style="width: 246px;height:136px;" class ="change" >
                             
@@ -227,7 +227,7 @@
                         <!-- <a href="javascript:;"><img src="__HOMEIMG__/jia.png" alt=""></a> -->
 
                         <div class="picDis2">
-                          <img src="" alt="" style="width: 246px;height:136px;" >
+                          <img src="{$data['sf_img_fan']}" alt="" style="width: 246px;height:136px;" >
                         </div>
 
                         <input onchange="preview2()"  type="file" style="width: 246px;height:136px;" class ="change" >
@@ -240,10 +240,11 @@
                       <span>银行卡账号<i>*</i></span>
                     </div>
                     <div class="fl rtm2">
-                      <input class="sr" type="text" id="bank_card" placeholder="请输入银行卡号">
+                   
+                      <input class="sr" type="text" id="bank_card" value="{$data['bank_card']}" placeholder="请输入银行卡号">
                     </div>
                   </div>
-                  <div class="top3_btm clearfix">
+                  <div class="top3_btm clearfix"> 
                     <div class="fl rtm1">
                       <span>银行卡图片<i>*</i></span>
                     </div>
@@ -251,7 +252,7 @@
                       <div class="ct upload">
                         <!-- <a href="javascript:;"><img src="__HOMEIMG__/jia.png" alt=""></a> -->
                         <div class="picDis3">
-                          <img src="" alt="" style="width: 246px;height:136px;" >
+                          <img src="{$data['bank_card_img']}" alt="" style="width: 246px;height:136px;" >
                         </div>
                         <input onchange="preview3()"  type="file" style="width: 246px;height:136px;" class ="change" >
                         <span>上传银行卡正面照</span>
@@ -370,7 +371,6 @@
   }
   
   $("#button1").click(function(){
-
     var name = $("#name").val()
     var sex = $('input:radio:checked').val()
     var email = $("#email").val()
@@ -406,7 +406,7 @@
       swal({title:"请输入自我介绍",text:""})
       return;
     }else{
-      $.post('person_info_add',{'uid':uid,'name':name,'name':name,'sex':sex,'email':email,'weixin':weixin,'url':url,'scly':scly,'zyys':zyys,'introduce':introduce},function(data){
+      $.post('person_info_add',{'uid':uid,'name':name,'sex':sex,'email':email,'weixin':weixin,'url':url,'scly':scly,'zyys':zyys,'introduce':introduce},function(data){
           if(data.status==1){
               swal({title:"提交成功",text:""})
               return;

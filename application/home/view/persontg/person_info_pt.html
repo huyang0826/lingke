@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {include file="public/header"}
+  <link href="__ADMINCSS__/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+  <link href="__ADMINCSS__/animate.min.css" rel="stylesheet">
+  <title>4.4用户中心账户信息</title>
+</head>
+<body>
+  
+  <div class="page2">
+    <!-- 公共 -->
+    <div class="header">
+      <div class="head_top">
+        <ul>
+          <li class="head_top_nav active">
+            <a href="javascript:;">创意图片</a>
+          </li>
+          <li class="head_top_nav">
+            <a href="javascript:;">编辑图片</a>
+          </li>
+          <li class="head_top_nav">
+            <a href="javascript:;">创意视频</a>
+          </li>
+          <li class="head_top_nav">
+            <a href="javascript:;">特约拍摄</a>
+          </li>
+          <li class="head_top_nav">
+            <a href="javascript:;">我要供稿</a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <img src="__HOMEIMG__/page2_01.png" alt="">
+              <span>客户服务</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="head">
+        <div class="wrapper">
+          <div class="head_ct clearfix">
+            <div class="head_ct_l fl">
+              <a href="javascript:;"><img src="__HOMEIMG__/logo01.png" alt=""></a>
+            </div>
+            <div class="head_ct_c fl clearfix">
+              <input type="text" placeholder="查找创意图片..." class="fl">
+              <div class="img fl"><img src="__HOMEIMG__/page2_02.png" alt=""></div>
+              <a class="xz fl" href="javascript:;">
+                <span>创意图片</span>
+                <!-- <img src="__HOMEIMG__/page2_03.png" alt=""> -->
+                <div class="hide">
+                  <p>创意图片</p>
+                  <p>编辑图片</p>
+                  <p>创意视频</p>
+                  <p>编辑视频</p>
+                </div>
+              </a>
+              <a class="search" href="javascript:;"><img src="__HOMEIMG__/page2_04.png" alt=""></a>
+            </div>
+            <div class="head_ct_r fr zm">
+              <!-- <a href="javascript:;" class="active">注册</a>
+              <a href="javascript:;">登录</a> -->
+              <i><img src="__HOMEIMG__/head.png" alt=""></i>
+              <span>疯狂的外星人</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 内容 -->
+    <div class="page4-1_container">
+      <div class="wrapper">
+        <div class="page4-1_container_ct page4-4_container_ct clearfix">
+          <div class="left fl">
+            <div class="top1">
+              <i><img src="__HOMEIMG__/head.png" alt=""></i>
+              <span>疯狂的外星人</span>
+            </div>
+            <div class="top2">
+              <div class="top2_1">
+                <a href="javascript:;">
+                  <img class="img1" src="__HOMEIMG__/2-11.png" alt="">
+                  <img class="img2" src="__HOMEIMG__/2-1.png" alt="">
+                  <span>收藏夹</span>
+                </a>
+              </div>
+              <div class="top2_1">
+                <a href="javascript:;">
+                  <img class="img1" src="__HOMEIMG__/1-11.png" alt="">
+                  <img class="img2" src="__HOMEIMG__/1-1.png" alt="">
+                  <span>下载记录</span>
+                </a>
+              </div>
+              <div class="top2_1">
+                <a class="active" href="javascript:;">
+                  <img class="img1" src="__HOMEIMG__/zhxx.png" alt="">
+                  <img class="img2" src="__HOMEIMG__/zhxx_xz.png" alt="">
+                  <span>账户信息</span>
+                </a>
+              </div>
+              <div class="top2_1">
+                <a href="javascript:;">
+                  <img class="img1" src="__HOMEIMG__/xgmm.png" alt="">
+                  <img class="img2" src="__HOMEIMG__/xgmm_xz.png" alt="">
+                  <span>修改密码</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="rht2 fr">
+            <div class="rht2_1 clearfix">
+              <div class="fl">
+                <img src="__HOMEIMG__/zhxx.png" alt="">
+                <span>账户信息</span>
+              </div>
+            </div>
+            <div class="rht2_2">
+              
+              <div class="rht2_2_1 clearfix">
+                <div class="fl le">
+                  <span>登录账号</span>
+                </div>
+                <div class="fl ri">
+                  <span>{$mobilephone}</span>
+                </div>
+              </div>
+
+              <div class="rht2_2_1 clearfix">
+                <div class="fl le">
+                  <span>您的名字</span>
+                </div>
+                <div class="fl ri">
+                  <input type="text" placeholder="您的名字" name="name" id="name" value="{$data['name']}">
+                </div>
+              </div>
+
+              <div class="rht2_2_1 clearfix">
+                <div class="fl le">
+                  <span>您的电话</span>
+                </div>
+                <div class="fl ri">
+                  <input type="text" placeholder="您的电话" name="mobilephone"  id="mobilephone" value="{$data['mobilephone']}">
+                </div>
+              </div>
+
+              <div class="rht2_2_1 clearfix">
+                <div class="fl le">
+                  <span>您的邮箱</span>
+                </div>
+                <div class="fl ri">
+                  <input type="text" placeholder="您的邮箱" name="email"  id="email" value="{$data['email']}">
+                </div>
+              </div>
+
+              <div class="rht2_2_1 clearfix">
+                <div class="fl le">
+                  <span>备注</span>
+                </div>
+                <div class="fl ri">
+                  <textarea name="note" id="note" cols="30" rows="10" placeholder="您的备注" >{$data['note']}</textarea>
+                </div>
+              </div>
+              <div class="rht2_2_1 clearfix">
+                <div class="ri">
+                  <a href="javascript:;" id="button1">确定</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    
+  </div>
+
+
+ {include file="public/footer"}
+
+</html>
+<script src="http://cdn.bootcss.com/moment.js/2.11.1/moment.js"></script>
+<script src="__ADMINJS__/jquery.min.js?v=2.1.4"></script>
+<script src="__ADMINJS__/bootstrap.min.js?v=3.3.6"></script>
+<script src="__ADMINJS__/content.min.js?v=1.0.0"></script>
+<script src="__ADMINJS__/plugins/sweetalert/sweetalert.min.js"></script>
+</html>
+
+<script type="text/javascript">
+  $("#button1").click(function(){
+    var name = $("#name").val()
+    var mobilephone = $("#mobilephone").val()
+    var email = $("#email").val()
+    var note = $("#note").val()
+    var uid = "{$uid}";
+
+    $.post('person_info_pt_add',{'id':uid,'name':name,'mobilephone':mobilephone,'email':email,'note':note},function(data){
+        if(data.status==1){
+            swal({title:"提交成功",text:""})
+            return;
+        }else{
+            swal({title:"提交失败",text:""})
+            return;
+        }
+    })
+      
+    
+    
+  })
+</script>

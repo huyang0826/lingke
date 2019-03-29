@@ -1,0 +1,159 @@
+{include file="public/header"}
+<body>
+<div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>用户详情<small></small></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">用户名称:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="name" value="{$data.name}" required="true" class="form-control" placeholder="请输入用户名称"> <span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">手机号:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="mobilephone" value="{$data.mobilephone}" required="true" class="form-control" placeholder="请输入手机号"> <span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">邮箱:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="email" value="{$data.email}" required="true" class="form-control" placeholder="邮箱"> <span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">微信:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="weixin" value="{$data.weixin}" required="true" class="form-control" placeholder="微信"> <span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">性别:</label>
+                                <div class="col-sm-9">
+
+                                    <label><input type="radio" name="sex" {if condition="$data.sex eq 1"}checked{/if} > 男</label>
+
+                                    <label><input type="radio" name="sex"  {if condition="$data.sex eq 2"}checked{/if}> 女</label>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">注册时间:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="addtime" value="{$data.addtime}" required="true" class="form-control" placeholder="注册时间"> <span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">作品链接:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="url" value="{$data.url}" required="true" class="form-control" placeholder="作品链接"> <span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">擅长领域:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="scly" value="{$data.scly}" required="true" class="form-control" placeholder="擅长领域"> <span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">资源优势:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="zyys" value="{$data.zyys}" required="true" class="form-control" placeholder="资源优势"> <span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">自我介绍:</label>
+                                <div class="col-sm-9">
+
+                                    <textarea name="introduce" class="form-control">{$data.introduce}</textarea><span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">身份证号:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="sf_card" value="{$data.sf_card}" required="true" class="form-control" placeholder="身份证号"> <span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">身份证正面照图片:</label>
+                                <div class="col-sm-9">
+                                    <img src="{$data.sf_img_zheng}" style=" width:450px;height:230px; "><span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">身份证反面照图片:</label>
+                                <div class="col-sm-9">
+                                    <img src="{$data.sf_img_fan}" style=" width:450px;height:230px; "><span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">银行卡号:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="bank_card" value="{$data.bank_card}" required="true" class="form-control" placeholder="银行卡号"> <span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">银行卡图片:</label>
+                                <div class="col-sm-9">
+                                    <img src="{$data.bank_card_img}" style=" width:450px;height:230px; "><span class="help-block m-b-none"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">状态:</label>
+                                <div class="col-sm-9">
+                    
+                                    <select  class="form-control" name="status" required="true">
+                                        <option value="">请选择状态</option>
+                                        <option value="1" {if condition="$data.status eq 1"}selected{/if}>开启</option>
+                                        <option value="2" {if condition="$data.status eq 2"}selected{/if}>禁用</option>
+                                            
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-4">
+                                   
+                                    <div class="btn btn-white" onclick="javascript:history.go(-1)">返回</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
