@@ -19,15 +19,18 @@
         <div class="btn swiper-button-next swiper-button-next1"></div>
         <!-- 图片内容 -->
         <div class="swiper-container swiper-container1">
+          
           <div class="swiper-wrapper">
             <!-- 第一张图 -->
+          {php} foreach($banner as $k =>$v){ {/php}
             <div class="swiper-slide">
-              <a href="javascript:;"><img src="__HOMEIMG__/banner.png"></a>
+              <a href="{$v['url']}"><img src="{$v['pic_url']}" style="height:485px"></a>
             </div>
+          {php} } {/php}
             <!-- 第二张图 -->
-            <div class="swiper-slide">
+            <!-- <div class="swiper-slide">
               <a href="javascript:;"><img src="__HOMEIMG__/banner1.png"></a>
-            </div>
+            </div> -->
           </div>
         </div>
         <!-- 轮播小圆点 -->
@@ -39,6 +42,9 @@
     <!-- 内容 -->
     <div class="page2-1_container">
       <div class="nav">
+       <!--  {php} foreach($type as $k =>$v){ {/php}
+            <a href="javascript:;">人&nbsp;&nbsp;物</a>
+        {php} } {/php} -->
         <a class="active" href="javascript:;">创&nbsp;&nbsp;意</a>
         <a href="javascript:;">人&nbsp;&nbsp;物</a>
         <a href="javascript:;">健&nbsp;&nbsp;康</a>
